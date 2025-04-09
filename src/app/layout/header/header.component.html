@@ -6,7 +6,7 @@
                 <a *ngIf="isAdmin()">ADMIN</a>
                 <a *ngIf="isManager()">MANAGER</a>
                 <a *ngIf="isUser()">USER</a>
-                <a *ngIf="!isLoggedIn" routerLink="/login" class="hover:underline">Iniciar Sesión</a>
+                <a *ngIf="!isLoggedIn" routerLink="/login" class=" font-medium">Iniciar Sesión</a>
                 <a *ngIf="isLoggedIn" (click)="logout()" class="hover:underline">Cerrar Sesión</a>
                 <button (click)="darkMode()">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
