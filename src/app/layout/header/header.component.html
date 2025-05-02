@@ -3,7 +3,7 @@
         <div class="flex justify-between items-center h-8">
             <a href="/" class="text-lg sm:text-2xl font-bold"><app-logo></app-logo></a>
             <nav class="hidden md:flex space-x-6">
-                <a *ngIf="isAdmin()">ADMIN</a>
+                <a *ngIf="isAdmin()"  routerLink="/users">Usuarios</a>
                 <a *ngIf="isManager()">MANAGER</a>
                 <a *ngIf="isUser()">USER</a>
                 <a *ngIf="!isLoggedIn" routerLink="/login" class=" font-medium">Iniciar Sesión</a>
