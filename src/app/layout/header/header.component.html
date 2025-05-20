@@ -4,7 +4,7 @@
             <a href="/" class="text-lg sm:text-2xl font-bold"><app-logo></app-logo></a>
             <nav class="hidden md:flex space-x-6">
                 <a *ngIf="isAdmin()"  routerLink="/users">Usuarios</a>
-                <a *ngIf="isManager()">MANAGER</a>
+                <a *ngIf="isManager()" routerLink="/categories">Categorías</a>
                 <a *ngIf="isUser()">USER</a>
                 <a *ngIf="!isLoggedIn" routerLink="/login" class=" font-medium">Iniciar Sesión</a>
                 <a *ngIf="isLoggedIn" (click)="logout()" class="hover:underline">Cerrar Sesión</a>

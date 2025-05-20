@@ -6,6 +6,8 @@ import { Error404Component } from './shared/error404/error404.component';
 import { UserComponent } from './features/user/user.component';
 import { UserFormComponent } from './features/user-form/user-form.component';
 import { authGuard } from './core/guards/auth.guard';
+import { CategoryComponent } from './features/category/category.component';
+import { CategoryFormComponent } from './features/category-form/category-form.component';
 
 export const routes: Routes = [
     {
@@ -19,7 +21,15 @@ export const routes: Routes = [
         canActivate: [authGuard],
     },
     {
+        path: 'categories', component : CategoryComponent,
+        canActivate: [authGuard],
+    },
+    {
         path: 'user-form', component : UserFormComponent,
+        canActivate: [authGuard],
+    },
+    {
+        path: 'category-form', component : CategoryFormComponent,
         canActivate: [authGuard],
     },
     {

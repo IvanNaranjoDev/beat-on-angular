@@ -1,0 +1,32 @@
+<div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-md">
+    <h1 class="text-2xl font-bold mb-6 text-center">Crear / Actualizar Categorías</h1>
+
+    <form (ngSubmit)="guardarCategoria()">
+        <!-- Name -->
+        <div class="mb-4">
+            <label for="name" class="block text-gray-700 font-medium">Nombre de categoría</label>
+            <input type="text" id="name" [(ngModel)]="categoria.name" name="name"
+                class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:border-blue-400"
+                placeholder="Introduce el nombre de la categoría" required>
+        </div>
+
+        <!-- Color -->
+        <div class="mb-4">
+            <label for="color" class="block text-gray-700 font-medium">Color</label>
+            <input type="text" id="color" [(ngModel)]="categoria.color" name="color"
+                class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:border-blue-400"
+                placeholder="#FFFFFF" pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$" title="Introduce un color hexadecimal válido." required>
+        </div>
+
+        <div class="mb-4">
+        <label for="icon_url" class="block text-gray-700 font-medium">Icono (PNG)</label>
+        <input type="file" id="icon_url" (change)="onFileSelected($event)" accept=".png"
+         class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:border-blue-400" required>
+        </div>
+
+        <button type="submit"
+         class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+        Guardar Categoría
+        </button>
+    </form>
+<div>
