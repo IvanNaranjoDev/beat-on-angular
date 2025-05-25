@@ -6,27 +6,35 @@ import { FormsModule} from '@angular/forms'
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   imports: [FormsModule, CommonModule, RouterModule],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.scss'
 })
-export class LoginComponent {
+export class RegisterComponent {
   username = '';
+  email = '';
   password = '';
   error: string | null = null;
 
   constructor(private auth: AuthService, private router : Router) {}
 
   onSubmit() {
-    this.auth.login(this.username, this.password).subscribe({
-      next: res => {    
-        this.auth.setToken(res.token);
-        this.router.navigate(['']);
+    this.error = null;
+
+    const userData = {
+      username: this.username,
+      email: this.email,
+      password: this.password
+    };
+    
+    this.auth.register(userData).subscribe({
+      next: () => {
+        this.router.navigate(['/login']); // o a donde quieras redirigir
       },
       error: (err) => {
-        this.error = 'Usuario y contraseña invalidos';
-      },
+        this.error = err.error?.message || 'Error al registrarse';
+      }
     });
   }
 }

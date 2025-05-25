@@ -62,6 +62,6 @@ export class HeaderComponent {
   
   desplegarMenu() {
     this.isMenuOpen = !this.isMenuOpen;
-    this.menuIcon = this.isMenuOpen ? "X" : "☰";
+    this.menuIcon = this.isMenuOpen ? "✕" : "☰";
   }
 }

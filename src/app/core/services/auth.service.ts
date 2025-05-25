@@ -58,7 +58,11 @@ export class AuthService {
   getRole(): Observable<string | null> {
     return this.role.asObservable();
   }
-  
+
+  register(userData: { username: string, email: string, password: string }) {
+  return this.http.post(`${environment.apiUrl}/register`, userData);
+  }
+
   logout(): void {
     this.token.next(null);
     this.role.next(null);

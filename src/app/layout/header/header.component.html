@@ -1,33 +1,21 @@
-<header class="header-beat text-black">
-    <div class="max-w-7xl mx-2 px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-8">
+<header class="header-beat text-black p-4">
             <a href="/" class="text-lg sm:text-2xl font-bold"><app-logo></app-logo></a>
             <nav class="hidden md:flex space-x-6">
-                <a *ngIf="isAdmin()"  routerLink="/users">Usuarios</a>
-                <a *ngIf="isManager()" routerLink="/categories">Categorías</a>
-                <a *ngIf="isUser()">USER</a>
-                <a *ngIf="!isLoggedIn" routerLink="/login" class=" font-medium">Iniciar Sesión</a>
-                <a *ngIf="isLoggedIn" (click)="logout()" class="hover:underline">Cerrar Sesión</a>
-                <button (click)="darkMode()">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
-                    </svg>                      
-                </button>
+                <a *ngIf="isAdmin()"  routerLink="/users" class="font-medium p-2">Usuarios</a>
+                <a *ngIf="isManager()" routerLink="/categories" class="font-medium p-2">Categorías</a>
+                <a *ngIf="isUser()" class="font-medium p-2">USER</a>
+                <a *ngIf="!isLoggedIn" routerLink="/register" class=" font-medium p-2">Registrarse</a>
+                <a *ngIf="!isLoggedIn" routerLink="/login" class="text-[#FDD142] bg-stone-950 font-medium py-2 px-3 rounded-md">Iniciar Sesión</a>
+                <a *ngIf="isLoggedIn" (click)="logout()" class="hover:underline font-medium p-2">Cerrar Sesión</a>
             </nav>
             <button (click)="desplegarMenu()" class="md:hidden text-2xl text-black focus:outline-none">{{menuIcon}}</button>
-      </div>
-    </div>
 </header>
 
-<nav *ngIf="isMenuOpen" class="md:hidden header-beat p-4 space-y-2 text-lg text-black mt-2">
-    <a *ngIf="isAdmin()">ADMIN</a>
-    <a *ngIf="isManager()">MANAGER</a>
-    <a *ngIf="isUser()">USER</a>
-    <a *ngIf="!isLoggedIn" routerLink="/login" class="hover:underline">Iniciar Sesión</a>
-    <a *ngIf="isLoggedIn" (click)="logout()" class="hover:underline">Cerrar Sesión</a>
-    <button (click)="darkMode()">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
-        </svg>                      
-    </button>
+<nav *ngIf="isMenuOpen" class="md:hidden header-beat-mobile p-2 space-y-1 text-lg text-black mt-2 flex flex-col">
+    <a *ngIf="isAdmin()"  routerLink="/users" class="font-small p-1">Usuarios</a>
+    <a *ngIf="isManager()" routerLink="/categories" class="font-small p-1">Categorías</a>
+    <a *ngIf="isUser()" class="font-small p-1">USER</a>
+    <a *ngIf="!isLoggedIn" routerLink="/login" class=" font-small p-1">Registrarse</a>
+    <a *ngIf="!isLoggedIn" routerLink="/login" class="text-[#FDD142] bg-stone-950 font-small py-1 px-3 rounded-md">Iniciar Sesión</a>
+    <a *ngIf="isLoggedIn" (click)="logout()" class="hover:underline font-small p-2">Cerrar Sesión</a>
 </nav>

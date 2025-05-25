@@ -1,4 +1,16 @@
 .header-beat{
     background-color: #FDD142;
     font-family: "Inter", sans-serif;
+    height: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-beat-mobile{
+    background-color: #e5e5e5c3;
+    font-family: "Inter", sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
 }

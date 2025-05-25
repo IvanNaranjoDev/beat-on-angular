@@ -8,6 +8,7 @@ import { UserFormComponent } from './features/user-form/user-form.component';
 import { authGuard } from './core/guards/auth.guard';
 import { CategoryComponent } from './features/category/category.component';
 import { CategoryFormComponent } from './features/category-form/category-form.component';
+import { RegisterComponent } from './features/register/register.component';
 
 export const routes: Routes = [
     {
@@ -15,6 +16,9 @@ export const routes: Routes = [
     },
     {
         path: 'login', component : LoginComponent 
+    },
+    {
+        path: 'register', component : RegisterComponent 
     },
     {
         path: 'users', component : UserComponent,
