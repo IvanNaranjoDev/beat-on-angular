@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CategoryService } from '../../core/services/category.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-
+import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-category',
   imports: [CommonModule],
@@ -13,7 +13,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class CategoryComponent implements OnInit {
   categories: any[] = [];
   error : String | null = null;
-
+  public environment = environment;
+  
   constructor(private categoryService: CategoryService, private router: Router) {}
   
   ngOnInit() {
