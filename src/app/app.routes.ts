@@ -9,6 +9,9 @@ import { authGuard } from './core/guards/auth.guard';
 import { CategoryComponent } from './features/category/category.component';
 import { CategoryFormComponent } from './features/category-form/category-form.component';
 import { RegisterComponent } from './features/register/register.component';
+import { SoundComponent } from './features/sound/sound.component';
+import { SoundFormComponent } from './features/sound-form/sound-form.component';
+import { UserProfileComponent } from './features/user-profile/user-profile.component';
 
 export const routes: Routes = [
     {
@@ -21,6 +24,10 @@ export const routes: Routes = [
         path: 'register', component : RegisterComponent 
     },
     {
+        path: 'profile', component : UserProfileComponent,
+        canActivate: [authGuard],
+    },
+    {
         path: 'users', component : UserComponent,
         canActivate: [authGuard],
     },
@@ -29,11 +36,19 @@ export const routes: Routes = [
         canActivate: [authGuard],
     },
     {
+        path: 'sounds', component : SoundComponent,
+        canActivate: [authGuard],
+    },
+    {
         path: 'user-form', component : UserFormComponent,
         canActivate: [authGuard],
     },
     {
         path: 'category-form', component : CategoryFormComponent,
+        canActivate: [authGuard],
+    },
+    {
+        path: 'sound-form', component : SoundFormComponent,
         canActivate: [authGuard],
     },
     {

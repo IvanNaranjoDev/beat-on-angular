@@ -1,9 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { User } from '../../models/user';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -52,5 +53,25 @@ export class UserService {
     return this.http.delete<void>(`${environment.apiUrl}/users/${id}`, {
       headers: this.getHeaders()
     });
-  }  
+  }
+
+  getProfile(): Observable<User> {
+    return this.http.get<User>(`${environment.apiUrl}/profile`, {
+      headers: this.getHeaders()
+    });
+  }
+
+  updateProfile(profileUpdate: Partial<User> & { password?: string; newPassword?: string }): Observable<User> {
+    return this.http.put<User>(`${environment.apiUrl}/profile`, profileUpdate, {
+      headers: this.getHeaders()
+    });
+  }
+
+  deleteAccount(password: string): Observable<string> {
+    return this.http.request<string>('delete', `${environment.apiUrl}/profile`, {
+      headers: this.getHeaders(),
+      body: { password },
+      responseType: 'text' as 'json'
+    });
+  }
 }

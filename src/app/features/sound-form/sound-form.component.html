@@ -1,0 +1,99 @@
+<div class="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-md">
+  <h1 class="text-2xl font-bold mb-6 text-center">
+    {{ mode === 'edit' ? 'Actualizar Sonido' : 'Crear Sonido' }}
+  </h1>
+
+  <form (ngSubmit)="guardarSonido()" #soundForm="ngForm">
+    <!-- Nombre -->
+    <div class="mb-4">
+      <label for="name" class="block text-gray-700 font-medium">Nombre del sonido</label>
+      <input
+        type="text"
+        id="name"
+        [(ngModel)]="sound.name"
+        name="name"
+        required
+        class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:border-blue-400"
+        placeholder="Introduce el nombre del sonido"
+      />
+    </div>
+
+    <!-- Duración (auto-calculada) -->
+    <div class="mb-4">
+      <label for="duration" class="block text-gray-700 font-medium">Duración (mm:ss)</label>
+      <input
+        type="text"
+        id="duration"
+        [(ngModel)]="sound.duration"
+        name="duration"
+        readonly
+        class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg bg-gray-100"
+        placeholder="0:00"
+      />
+    </div>
+
+    <!-- Habilitado -->
+    <div class="mb-4">
+      <label for="enabled" class="block text-gray-700 font-medium">¿Habilitado?</label>
+      <select
+        id="enabled"
+        [(ngModel)]="sound.enabled"
+        name="enabled"
+        class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:border-blue-400"
+      >
+        <option [ngValue]="true">Sí</option>
+        <option [ngValue]="false">No</option>
+      </select>
+    </div>
+
+    <!-- Categoría -->
+    <div class="mb-4">
+      <label for="categoryId" class="block text-gray-700 font-medium">Categoría</label>
+      <select
+        id="categoryId"
+        [(ngModel)]="sound.categoryId"
+        name="categoryId"
+        required
+        class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:border-blue-400"
+      >
+        <option *ngFor="let category of categories" [value]="category.id">
+          {{ category.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Archivo de sonido -->
+    <div class="mb-4">
+      <label for="audioUrl" class="block text-gray-700 font-medium">Archivo de audio (MP3)</label>
+      <input
+        type="file"
+        id="audioUrl"
+        (change)="onAudioSelected($event)"
+        accept=".mp3"
+        class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:border-blue-400"
+        [required]="mode === 'create'"
+      />
+    </div>
+
+    <!-- Imagen -->
+    <div class="mb-4">
+      <label for="imageUrl" class="block text-gray-700 font-medium">Imagen del sonido (PNG, JPG)</label>
+      <input
+        type="file"
+        id="imageUrl"
+        (change)="onImageSelected($event)"
+        accept=".png,.jpg,.jpeg"
+        class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:border-blue-400"
+        [required]="mode === 'create'"
+      />
+    </div>
+
+    <!-- Botón de envío -->
+    <button
+      type="submit"
+      class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
+    >
+      {{ mode === 'edit' ? 'Actualizar Sonido' : 'Guardar Sonido' }}
+    </button>
+  </form>
+</div>

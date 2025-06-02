@@ -3,7 +3,8 @@
             <nav class="hidden md:flex space-x-6">
                 <a *ngIf="isAdmin()"  routerLink="/users" class="font-medium p-2">Usuarios</a>
                 <a *ngIf="isManager()" routerLink="/categories" class="font-medium p-2">Categorías</a>
-                <a *ngIf="isUser()" class="font-medium p-2">USER</a>
+                <a *ngIf="isManager()" routerLink="/sounds" class="font-medium p-2">Sonidos</a>
+                <a *ngIf="isUser()" routerLink="/profile" class="font-medium p-2">Mi perfil</a>
                 <a *ngIf="!isLoggedIn" routerLink="/register" class=" font-medium p-2">Registrarse</a>
                 <a *ngIf="!isLoggedIn" routerLink="/login" class="text-[#FDD142] bg-stone-950 font-medium py-2 px-3 rounded-md">Iniciar Sesión</a>
                 <a *ngIf="isLoggedIn" (click)="logout()" class="hover:underline font-medium p-2">Cerrar Sesión</a>
@@ -14,7 +15,7 @@
 <nav *ngIf="isMenuOpen" class="md:hidden header-beat-mobile p-2 space-y-1 text-lg text-black mt-2 flex flex-col">
     <a *ngIf="isAdmin()"  routerLink="/users" class="font-small p-1">Usuarios</a>
     <a *ngIf="isManager()" routerLink="/categories" class="font-small p-1">Categorías</a>
-    <a *ngIf="isUser()" class="font-small p-1">USER</a>
+    <a *ngIf="isUser()" routerLink="/profile" class="font-medium p-2">Mi perfil</a>
     <a *ngIf="!isLoggedIn" routerLink="/register" class=" font-small p-1">Registrarse</a>
     <a *ngIf="!isLoggedIn" routerLink="/login" class="text-[#FDD142] bg-stone-950 font-small py-1 px-3 rounded-md">Iniciar Sesión</a>
     <a *ngIf="isLoggedIn" (click)="logout()" class="hover:underline font-small p-2">Cerrar Sesión</a>

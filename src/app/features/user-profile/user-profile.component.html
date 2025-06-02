@@ -1,0 +1,43 @@
+<div class="mx-auto my-6 w-[90%] max-w-2xl h-auto border border-stone-200 rounded-2xl shadow-xl bg-white">
+  <div class="flex flex-col p-6">
+    
+    <form (ngSubmit)="actualizarPerfil()" class="flex flex-col">
+      <h2 class="text-5xl inter-font mb-5">Mi perfil</h2>
+
+      <div class="mb-5 flex flex-col">
+        <label class="text-base font-medium mb-1">Nombre de usuario:</label>
+        <input [(ngModel)]="usuario.username" name="username" class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs" type="text" />
+      </div>
+      
+      <div class="mb-5 flex flex-col">
+        <label class="text-base font-medium mb-1">Correo electrónico:</label>
+        <input [(ngModel)]="usuario.email" name="email" type="email" class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs" />
+      </div>
+
+      <button type="submit" class="my-2 border-2 border-emerald-500 text-emerald-500 px-3 py-1 rounded hover:bg-emerald-500 hover:text-white">
+        Actualizar perfil
+      </button>
+    </form>
+
+    <hr class="my-4 border-stone-200" />
+
+    <div class="delete-account">
+      <button (click)="deleteMode = !deleteMode"
+              class="mb-3 bg-red-100 text-red-600 px-4 py-2 rounded-md border border-red-300 hover:bg-red-200 transition-colors">
+        {{ deleteMode ? 'Cancelar eliminación' : 'Eliminar cuenta' }}
+      </button>
+
+      <div *ngIf="deleteMode" class="mt-2">
+        <label class="block text-sm font-medium text-stone-700 mb-1">Introduce tu contraseña para confirmar:</label>
+        <input type="password" [(ngModel)]="deletePassword" name="deletePassword"
+               class="w-full border border-stone-300 rounded-md px-3 py-2 mb-3 focus:outline-none focus:ring-2 focus:ring-red-400" />
+        
+        <button (click)="eliminarCuenta()"
+                class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors">
+          Confirmar eliminación
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
