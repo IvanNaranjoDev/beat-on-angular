@@ -1,0 +1,45 @@
+<div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-md">
+  <h1 class="text-2xl font-bold mb-6 text-center">Enviar Email</h1>
+
+  <form (ngSubmit)="enviarEmail()">
+    <!-- Destinatario -->
+    <div class="mb-4">
+      <label for="to" class="block text-gray-700 font-medium">Para (Email destinatario)</label>
+      <select id="to" [(ngModel)]="email.to" name="to" required
+        class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:border-blue-400">
+        <option value="" disabled>Selecciona un destinatario</option>
+        <option *ngFor="let user of usuarios" [value]="user.email">
+          {{ user.email }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Subject -->
+    <div class="mb-4">
+      <label for="subject" class="block text-gray-700 font-medium">Asunto</label>
+      <select id="subject" [(ngModel)]="email.subject" name="subject" required
+        class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:border-blue-400">
+        <option value="" disabled>Selecciona un asunto</option>
+        <option *ngFor="let opcion of subjects" [value]="opcion">
+          {{ opcion }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Texto -->
+    <div class="mb-4">
+      <label for="text" class="block text-gray-700 font-medium">Texto</label>
+      <input type="text" id="text" [(ngModel)]="email.text" name="text" required
+        placeholder="Escribe el texto del email"
+        class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:border-blue-400" />
+    </div>
+
+    <!-- Botón -->
+    <div class="mt-6">
+      <button type="submit"
+        class="w-full bg-green-500 text-white py-2 px-4 rounded-lg shadow-md hover:bg-green-600 focus:ring focus:border-green-400">
+        Enviar
+      </button>
+    </div>
+  </form>
+</div>

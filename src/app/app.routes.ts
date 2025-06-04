@@ -12,6 +12,7 @@ import { RegisterComponent } from './features/register/register.component';
 import { SoundComponent } from './features/sound/sound.component';
 import { SoundFormComponent } from './features/sound-form/sound-form.component';
 import { UserProfileComponent } from './features/user-profile/user-profile.component';
+import { EmailFormComponent } from './features/email-form/email-form.component';
 
 export const routes: Routes = [
     {
@@ -29,6 +30,10 @@ export const routes: Routes = [
     },
     {
         path: 'users', component : UserComponent,
+        canActivate: [authGuard],
+    },
+    {
+        path: 'mails', component : EmailFormComponent,
         canActivate: [authGuard],
     },
     {

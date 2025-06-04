@@ -2,6 +2,7 @@
             <a href="/" class="text-lg sm:text-2xl font-bold"><app-logo></app-logo></a>
             <nav class="hidden md:flex space-x-6">
                 <a *ngIf="isAdmin()"  routerLink="/users" class="font-medium p-2">Usuarios</a>
+                <a *ngIf="isAdmin()"  routerLink="/mails" class="font-medium p-2">Enviar Notificaciones</a>
                 <a *ngIf="isManager()" routerLink="/categories" class="font-medium p-2">Categorías</a>
                 <a *ngIf="isManager()" routerLink="/sounds" class="font-medium p-2">Sonidos</a>
                 <a *ngIf="isUser()" routerLink="/profile" class="font-medium p-2">Mi perfil</a>
