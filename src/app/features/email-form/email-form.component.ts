@@ -15,10 +15,9 @@ import { OnInit } from '@angular/core';
 export class EmailFormComponent implements OnInit {
    usuarios: Array<{ email: string }> = [];
   subjects: string[] = [
-    'Asunto 1',
-    'Asunto 2',
-    'Asunto 3',
-    // agrega aquí tus opciones de asunto
+    'Modificación de cuenta',
+    'Eliminación de cuenta',
+    'Recuperación de cuenta',
   ];
 
   email = {
@@ -37,8 +36,6 @@ export class EmailFormComponent implements OnInit {
 
   enviarEmail() {
     this.emailService.postMail(this.email).subscribe({
-      next: (res) => alert(res), // res será "Email enviado correctamente"
-      error: (err) => alert('Error al enviar email: ' + err.message)
     });
   }
 }
