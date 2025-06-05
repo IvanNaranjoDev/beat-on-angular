@@ -66,4 +66,10 @@
         headers: this.getHeaders()
       });
     }
+
+    getCategoriesSequencer(): Observable<any> {
+      return this.http.get(`${environment.apiUrl}/sequencer/categories`, {
+        headers: this.getHeaders(),
+      });
+    }
   }

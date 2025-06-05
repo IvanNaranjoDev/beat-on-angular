@@ -1,3 +1,5 @@
+import { Category } from "./category";
+
 export interface Sound {
   id: number;
   name: string;
@@ -5,5 +7,8 @@ export interface Sound {
   image: string;
   soundPath: string;
   enabled: boolean;
-  categoryId: number;
+  categoryId?: number;
+  category: Category;
+  audio?: HTMLAudioElement;
+  buffer?: AudioBuffer;
 }

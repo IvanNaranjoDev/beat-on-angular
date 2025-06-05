@@ -1,0 +1,68 @@
+<div class="p-5 w-[90%] h-[1000px] mx-auto">
+  <!-- 🎚️ Controles -->
+  <div class="controls flex items-center justify-between mb-6">
+    <!-- BPM -->
+    <div class="bpm-control">
+      <label for="bpm-select" class="text-stone-950 font-semibold mr-2">BPM:</label>
+      <select
+        id="bpm-select"
+        [(ngModel)]="bpm"
+        (change)="onBpmChange()"
+        class="p-2 rounded bg-zinc-800 text-white"
+      >
+        <option *ngFor="let option of bpmOptions" [value]="option">{{ option }}</option>
+      </select>
+    </div>
+
+    <!-- Play/Pause -->
+    <button
+      type="button"
+      class="play-button px-6 py-2 rounded bg-green-600 text-white hover:bg-green-700"
+      (click)="togglePlay()"
+    >
+      {{ isPlaying ? 'Pause' : 'Play' }}
+    </button>
+  </div>
+
+  <!-- 🎛️ Secuenciador -->
+  <div class="grid w-full bg-stone-900 p-6 rounded-lg space-y-6">
+    <div *ngFor="let row of rows; let rowIndex = index" class="row">
+      <!-- Cabecera de categoría -->
+      <div class="flex items-center mb-2 space-x-4">
+        <div
+          class="w-[24px] h-[24px] rounded-full"
+          [style.backgroundColor]="row.category.color"
+          [title]="row.category.name"
+        ></div>
+        <span class="text-white font-semibold">{{ row.category.name }}</span>
+
+        <!-- Selector de sonido -->
+        <select
+          [(ngModel)]="row.selectedSound"
+          class="ml-4 p-2 rounded bg-zinc-800 text-white"
+          [ngModelOptions]="{ standalone: true }"
+        >
+          <option *ngFor="let sound of row.sounds" [ngValue]="sound">
+            {{ sound.name }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Pasos -->
+      <div class="flex flex-row justify-start space-x-2 mt-2">
+        <button
+          type="button"
+          class="w-[60px] h-[60px] rounded text-white"
+          *ngFor="let step of row.steps; let colIndex = index"
+          [style.backgroundColor]="step.active ? row.category.color : ''"
+          [class.bg-zinc-800]="!step.active"
+          [class.ring-2]="colIndex === currentStep && isPlaying"
+          [class.ring-yellow-400]="colIndex === currentStep && isPlaying"
+          (click)="toggleStep(rowIndex, colIndex)"
+          [attr.aria-label]="'Step ' + (colIndex + 1) + ' in category ' + row.category.name"
+        >
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -66,4 +66,10 @@ export class SoundService {
       headers: this.getHeaders()
     });
   }
+
+  getSequencerSounds(): Observable<Sound[]> {
+  return this.http.get<Sound[]>(`${environment.apiUrl}/sequencer`, {
+    headers: this.getHeaders()
+  });
+  }
 }

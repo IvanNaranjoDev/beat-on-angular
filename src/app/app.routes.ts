@@ -13,6 +13,7 @@ import { SoundComponent } from './features/sound/sound.component';
 import { SoundFormComponent } from './features/sound-form/sound-form.component';
 import { UserProfileComponent } from './features/user-profile/user-profile.component';
 import { EmailFormComponent } from './features/email-form/email-form.component';
+import { SequencerComponent } from './features/sequencer/sequencer.component';
 
 export const routes: Routes = [
     {
@@ -26,6 +27,10 @@ export const routes: Routes = [
     },
     {
         path: 'profile', component : UserProfileComponent,
+        canActivate: [authGuard],
+    },
+    {
+        path: 'sequencer', component : SequencerComponent,
         canActivate: [authGuard],
     },
     {
