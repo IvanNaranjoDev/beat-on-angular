@@ -7,6 +7,9 @@ import { Sound } from '../../models/sound';
 import { SoundService } from '../../core/services/sound.service';
 import { CategoryService } from '../../core/services/category.service';
 import { environment } from '../../../environments/environment';
+import { InstrumentalService } from '../../core/services/instrumental.service';
+import { AuthService } from '../../core/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sequencer',
@@ -23,14 +26,27 @@ export class SequencerComponent implements OnInit, OnDestroy {
   interval: any;
   isPlaying = false;
 
+  instName: string = '';
+  isPublic: boolean = false;
+  coverFile: File | null = null;
   bpmOptions = [80, 100, 120, 130, 140, 170];
   bpm = 120;
+
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.coverFile = file;
+    }
+  }
 
   private audioContext = new AudioContext();
 
   constructor(
+    private authService: AuthService,
     private soundService: SoundService,
-    private categoryService: CategoryService
+    private instrumentalService: InstrumentalService,
+    private categoryService: CategoryService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -119,5 +135,56 @@ export class SequencerComponent implements OnInit, OnDestroy {
     source.buffer = buffer;
     source.connect(this.audioContext.destination);
     source.start();
+  }
+
+  saveInstrumental(): void {
+    this.authService.getUserId().subscribe({
+      next: (data) => {
+        const userId = data.userId;
+
+        const steps = this.rows
+          .map((row, rowIndex) => {
+            if (!row.selectedSound) return null;
+
+            const stepData = row.steps.map(step => step.active);
+            if (!stepData.includes(true)) return null;
+
+            return {
+              soundId: row.selectedSound.id,
+              rowIndex,
+              steps: stepData
+            };
+          })
+          .filter(step => step !== null);
+
+        const dto = {
+          instName: this.instName,
+          bpm: this.bpm.toString(),
+          isPublic: this.isPublic,
+          userId: userId,
+          steps: steps
+        };
+
+        const formData = new FormData();
+        formData.append('data', new Blob([JSON.stringify(dto)], { type: 'application/json' }));
+
+        if (this.coverFile) {
+          formData.append('coverUrl', this.coverFile);
+        }
+
+        this.instrumentalService.createInstrumental(formData).subscribe({
+          next: res => {
+            console.log('Instrumental creado correctamente', res);
+            this.router.navigate(['/my-instrumentals']);
+          },
+          error: err => {
+            console.error('Error al guardar el instrumental:', err);
+          }
+        });
+      },
+      error: err => {
+        console.error('Error al obtener el userId:', err);
+      }
+    });
   }
 }

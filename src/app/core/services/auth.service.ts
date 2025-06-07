@@ -41,6 +41,19 @@ export class AuthService {
     return this.token.value;
   }
 
+  getAuthHeaders(): HttpHeaders {
+    const token = this.getToken();
+
+    if (!token) {
+      throw new Error('Unauthorized');
+    }
+
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+  }
+
   isLoggedIn(): Observable<boolean> {
     return this.token.asObservable().pipe(map(token => !!token));
   }
@@ -57,6 +70,10 @@ export class AuthService {
 
   getRole(): Observable<string | null> {
     return this.role.asObservable();
+  }
+
+  getUserId(): Observable<{ userId: number }> {
+    return this.http.get<{ userId: number }>(`${environment.apiUrl}/me`, { headers: this.getAuthHeaders() });
   }
 
   register(userData: { username: string, email: string, password: string }) {

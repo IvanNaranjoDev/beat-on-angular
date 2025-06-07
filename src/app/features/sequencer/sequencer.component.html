@@ -1,66 +1,88 @@
-<div class="p-5 w-[90%] h-[1000px] mx-auto">
-  <!-- 🎚️ Controles -->
-  <div class="controls flex items-center justify-between mb-6">
-    <!-- BPM -->
+<div class="p-5 w-[90%] h-full mx-auto flex flex-col">
+<div class="p-5 w-[90%] h-full mx-auto flex flex-col">
+<div class="p-5 w-[90%] h-full mx-auto flex flex-col">
+  <!-- Formulario para guardar el instrumental -->
+  <form (submit)="saveInstrumental()" class="rounded-lg space-y-6 mt-5">
+    <!-- Nombre del instrumental -->
+    <div class="mb-6 flex flex-row border-b-2 border-gray-400 focus:border-stone-600 w-164">
+      <input id="instName" [(ngModel)]="instName" name="instName" type="text"
+            class="text-5xl font-semibold bg-transparent focus:outline-none text-stone-950 placeholder-stone-950  "
+            placeholder="Nueva instrumental"
+      required />
+
+      <img src="assets/pencil.svg" alt="edit" class="h-[50px] w-[50px]">
+    </div>
+
+    <!-- Subida de portada -->
+    <div class="flex flex-col w-96 mt-8">
+      <label for="coverFile" class="text-stone-950 font-semibold mb-3 text-3xl">Subir portada:</label>
+      <div class="relative">
+        <input id="coverFile" type="file" (change)="onFileSelected($event)" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
+        
+        <div class="p-3 rounded text-white border-4 border-zinc-400 flex items-center justify-between">
+          <span class="truncate text-zinc-400 font-semibold">Seleccionar imagen</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-zinc-400 h-[50px] w-[50px]">
+            <polyline points="18 9 12 3 6 9" fill="none" stroke="currentColor" stroke-miterlimit="10"/>
+            <line x1="12" y1="3" x2="12" y2="17" fill="none" stroke="currentColor" stroke-miterlimit="10"/>
+            <line x1="3" y1="21" x2="21" y2="21" fill="none" stroke="currentColor" stroke-miterlimit="10"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón para guardar -->
+    <div class="flex justify-end">
+      <button type="submit" class="px-6 py-2 rounded bg-green-600 text-white hover:bg-green-700">
+        Guardar Instrumental
+      </button>
+    </div>
+  </form>
+
+  <!-- Controles superiores: BPM y Play -->
+  <div class="controls flex items-center justify-between mt-6">
     <div class="bpm-control">
       <label for="bpm-select" class="text-stone-950 font-semibold mr-2">BPM:</label>
-      <select
-        id="bpm-select"
-        [(ngModel)]="bpm"
-        (change)="onBpmChange()"
-        class="p-2 rounded bg-zinc-800 text-white"
-      >
-        <option *ngFor="let option of bpmOptions" [value]="option">{{ option }}</option>
+      <select id="bpm-select" [(ngModel)]="bpm" name="bpm" 
+              class="p-2 rounded bg-zinc-800 text-white">
+        <option *ngFor="let option of bpmOptions" [value]="option">{{ option }} BPM</option>
       </select>
     </div>
 
-    <!-- Play/Pause -->
-    <button
-      type="button"
-      class="play-button px-6 py-2 rounded bg-green-600 text-white hover:bg-green-700"
-      (click)="togglePlay()"
-    >
+    <button type="button" class="play-button px-6 py-2 rounded bg-green-600 text-white hover:bg-green-700"
+            (click)="togglePlay()">
       {{ isPlaying ? 'Pause' : 'Play' }}
     </button>
   </div>
 
-  <!-- 🎛️ Secuenciador -->
-  <div class="grid w-full bg-stone-900 p-6 rounded-lg space-y-6">
+  <!-- Zona de edición de pasos rítmicos -->
+  <div class="grid w-[75%] bg-stone-900 p-6 rounded-lg space-y-6 mt-5">
     <div *ngFor="let row of rows; let rowIndex = index" class="row">
-      <!-- Cabecera de categoría -->
       <div class="flex items-center mb-2 space-x-4">
-        <div
-          class="w-[24px] h-[24px] rounded-full"
-          [style.backgroundColor]="row.category.color"
-          [title]="row.category.name"
-        ></div>
+        <!-- Categoría -->
+        <div class="w-[24px] h-[24px] rounded-full"
+             [style.backgroundColor]="row.category.color"
+             [title]="row.category.name"></div>
         <span class="text-white font-semibold">{{ row.category.name }}</span>
 
-        <!-- Selector de sonido -->
-        <select
-          [(ngModel)]="row.selectedSound"
-          class="ml-4 p-2 rounded bg-zinc-800 text-white"
-          [ngModelOptions]="{ standalone: true }"
-        >
+        <!-- Selección de sonido -->
+        <select [(ngModel)]="row.selectedSound" class="ml-4 p-2 rounded bg-zinc-800 text-white"
+                [ngModelOptions]="{ standalone: true }">
           <option *ngFor="let sound of row.sounds" [ngValue]="sound">
             {{ sound.name }}
           </option>
         </select>
       </div>
 
-      <!-- Pasos -->
+      <!-- Botones de pasos -->
       <div class="flex flex-row justify-start space-x-2 mt-2">
-        <button
-          type="button"
-          class="w-[60px] h-[60px] rounded text-white"
-          *ngFor="let step of row.steps; let colIndex = index"
-          [style.backgroundColor]="step.active ? row.category.color : ''"
-          [class.bg-zinc-800]="!step.active"
-          [class.ring-2]="colIndex === currentStep && isPlaying"
-          [class.ring-yellow-400]="colIndex === currentStep && isPlaying"
-          (click)="toggleStep(rowIndex, colIndex)"
-          [attr.aria-label]="'Step ' + (colIndex + 1) + ' in category ' + row.category.name"
-        >
+        <button type="button" class="w-[60px] h-[60px] rounded text-white"
+                *ngFor="let step of row.steps; let colIndex = index"
+                [style.backgroundColor]="step.active ? row.category.color : ''"
+                [class.bg-zinc-800]="!step.active"
+                [class.ring-2]="colIndex === currentStep && isPlaying"
+                [class.ring-yellow-400]="colIndex === currentStep && isPlaying"
+                (click)="toggleStep(rowIndex, colIndex)"
+                [attr.aria-label]="'Step ' + (colIndex + 1) + ' en ' + row.category.name">
         </button>
       </div>
     </div>

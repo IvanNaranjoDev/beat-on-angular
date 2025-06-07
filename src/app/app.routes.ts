@@ -14,6 +14,7 @@ import { SoundFormComponent } from './features/sound-form/sound-form.component';
 import { UserProfileComponent } from './features/user-profile/user-profile.component';
 import { EmailFormComponent } from './features/email-form/email-form.component';
 import { SequencerComponent } from './features/sequencer/sequencer.component';
+import { MyInstrumentalsComponent } from './features/my-instrumentals/my-instrumentals.component';
 
 export const routes: Routes = [
     {
@@ -31,6 +32,10 @@ export const routes: Routes = [
     },
     {
         path: 'sequencer', component : SequencerComponent,
+        canActivate: [authGuard],
+    },
+    {
+        path: 'my-instrumentals', component : MyInstrumentalsComponent,
         canActivate: [authGuard],
     },
     {
