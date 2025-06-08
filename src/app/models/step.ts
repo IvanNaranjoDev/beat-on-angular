@@ -1,3 +1,5 @@
 export interface Step {
-  active: boolean;
+  soundId: number;
+  rowIndex: number;
+  steps: boolean[];
 }

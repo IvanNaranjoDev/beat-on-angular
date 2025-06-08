@@ -62,7 +62,7 @@ export class InstrumentalService {
     });
   }
     
-  deleteCategory(id: number): Observable<void> {
+  deleteInstrumental(id: number): Observable<void> {
     return this.http.delete<void>(`${environment.apiUrl}/instrumentals/${id}`, {
       headers: this.getHeaders()
     });

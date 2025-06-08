@@ -1,6 +1,7 @@
 <div class="p-5 w-[90%] h-full mx-auto flex flex-col">
-  <!-- Formulario para guardar el instrumental -->
-  <form (submit)="saveInstrumental()" class="rounded-lg space-y-6 mt-5">
+  <!-- Formulario para actualizar el instrumental -->
+  <form (ngSubmit)="updateInstrumental()" class="rounded-lg space-y-6">
+    <!-- Encabezado con nombre y acciones -->
     <div class="flex flex-row justify-between items-start border-b-2 border-gray-200 pb-4">
       <!-- Nombre del instrumental -->
       <div class="flex flex-row border-b-2 border-gray-400 focus-within:border-stone-600 w-full max-w-2xl">
@@ -9,12 +10,35 @@
                placeholder="Nombre del instrumental" required />
         <img src="assets/pencil.svg" alt="edit" class="h-[50px] w-[50px]">
       </div>
+
+      <!-- Botones de acción -->
+      <div class="flex gap-4">
+        <button type="button" (click)="deleteInstrumental()"
+                class="px-4 py-2 rounded-full bg-red-600 text-white hover:bg-red-700 transition-colors flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5 fill-current">
+            <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+          </svg>
+          Eliminar
+        </button>
+      </div>
     </div>
 
-    <!-- Selector de portada -->
+    <!-- Portada actual y selector de nueva portada -->
     <div class="flex flex-col w-full mt-8">
       <label class="text-stone-950 font-semibold mb-3 text-2xl">Portada:</label>
       <div class="flex flex-col md:flex-row gap-6 items-start">
+        <!-- Portada actual -->
+        <div *ngIf="currentCoverUrl" class="relative group">
+          <img [src]="currentCoverUrl" alt="Portada actual" class="w-64 h-64 object-cover rounded-lg shadow-md">
+          <button type="button" (click)="removeCover()"
+                  class="absolute top-2 right-2 bg-red-500 text-white rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4 fill-current">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Selector de nueva portada -->
         <div class="relative flex-1 max-w-md">
           <input id="coverFile" type="file" (change)="onFileSelected($event)" accept="image/*" 
                  class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
@@ -43,6 +67,15 @@
                   class="p-2 rounded-lg bg-zinc-800 text-white border-none focus:ring-2 focus:ring-green-500">
             <option *ngFor="let option of bpmOptions" [value]="option">{{ option }}</option>
           </select>
+        </div>  
+
+        <!-- Control de visibilidad -->
+        <div class="flex items-center gap-3 ml-6">
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input type="checkbox" [(ngModel)]="public" name="public" class="sr-only peer">
+            <div class="w-11 h-6 bg-zinc-400 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+            <span class="ml-3 text-stone-950 font-medium">Público</span>
+          </label>
         </div>
       </div>
 
@@ -96,6 +129,10 @@
 
     <!-- Botones de acción -->
     <div class="flex justify-end gap-4 mt-8">
+      <button type="button" (click)="volver()"
+              class="px-6 py-2 rounded-full bg-zinc-300 text-zinc-800 hover:bg-zinc-400 transition-colors">
+        Cancelar
+      </button>
       <button type="submit" 
               class="px-8 py-3 rounded-full bg-green-600 text-white hover:bg-green-700 transition-colors flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6 fill-current">
@@ -104,5 +141,5 @@
         Guardar Cambios
       </button>
     </div>
-  </form>
+    </form>
 </div>
