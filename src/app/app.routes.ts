@@ -17,6 +17,7 @@ import { SequencerComponent } from './features/sequencer/sequencer.component';
 import { MyInstrumentalsComponent } from './features/my-instrumentals/my-instrumentals.component';
 import { MySequencerComponent } from './features/my-sequencer/my-sequencer.component';
 import { FavoritesComponent } from './features/favorites/favorites.component';
+import { PublicSequencerComponent } from './features/public-sequencer/public-sequencer.component';
 
 export const routes: Routes = [
     {
@@ -47,6 +48,9 @@ export const routes: Routes = [
     {
         path: 'my-sequencer/:instrumentalId', component: MySequencerComponent,
         canActivate: [authGuard,]
+    },
+    {
+        path: 'public/:instrumentalId', component: PublicSequencerComponent
     },
     {
         path: 'users', component : UserComponent,

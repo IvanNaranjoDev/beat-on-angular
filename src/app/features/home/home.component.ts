@@ -7,6 +7,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { Like } from '../../models/Like';
 import { LikeService } from '../../core/services/like.service';
 import { firstValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private instrumentalService: InstrumentalService,
     private likeService: LikeService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -67,5 +69,9 @@ export class HomeComponent implements OnInit {
 
   isFavorite(instId: number): boolean {
     return this.likes.some(like => like.instrumentalId === instId);
+  }
+
+  goToPublicView(id: number): void {
+    this.router.navigate(['/public', id]);
   }
 }

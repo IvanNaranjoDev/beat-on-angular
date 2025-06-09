@@ -7,7 +7,7 @@ import { Like } from '../../models/Like';
 import { LikeService } from '../../core/services/like.service';
 import { environment } from '../../../environments/environment';
 import { firstValueFrom } from 'rxjs';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-favorites',
   standalone: true,
@@ -25,7 +25,8 @@ export class FavoritesComponent implements OnInit {
   constructor(
     private likeService: LikeService,
     private instrumentalService: InstrumentalService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -87,5 +88,9 @@ export class FavoritesComponent implements OnInit {
     } catch (error) {
       console.error('Error al obtener userId:', error);
     }
+  }
+
+  goToPublicView(id: number): void {
+    this.router.navigate(['/public', id]);
   }
 }
