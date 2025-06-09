@@ -44,6 +44,11 @@ export class InstrumentalService {
     });
   }
 
+  fetchPublicInstrumentals(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/public-instrumentals`);
+  }
+
+
   getInstrumentalById(id: number): Observable<Instrumental> {
     return this.http.get<Instrumental>(`${environment.apiUrl}/instrumentals/${id}`, {
       headers: this.getHeaders()

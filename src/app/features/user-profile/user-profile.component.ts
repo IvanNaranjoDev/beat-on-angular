@@ -5,6 +5,10 @@ import { Router, NavigationEnd } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
+import { Avatar } from '../../models/user';
+import { AvatarService } from '../../core/services/avatar.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -21,11 +25,15 @@ export class UserProfileComponent implements OnInit {
     roles: []
   };
 
+  avatars: Avatar[] = [];
   deleteMode: boolean = false;
   deletePassword: string = '';
+  public environment = environment;
 
   constructor(
     private userService: UserService,
+    private avatarService: AvatarService,
+    private authService: AuthService,
     private router: Router
   ) {
     this.router.events.pipe(
@@ -37,6 +45,7 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarPerfil();
+    this.cargarAvatars();
   }
 
   cargarPerfil(): void {
@@ -57,14 +66,32 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
+  cargarAvatars(): void {
+    this.avatarService.fetchAvatars().subscribe({
+      next: (data: Avatar[]) => {
+        this.avatars = data;
+      },
+      error: err => {
+        console.error('Error al cargar avatars', err);
+      }
+    });
+  }
+
   actualizarPerfil(): void {
+    const avatarId = this.usuario.avatar?.id;
+    const avatarObj = avatarId !== undefined && avatarId !== null
+      ? { id: avatarId, path: this.usuario.avatar?.path }
+      : undefined;
+
     const datosActualizados = {
       username: this.usuario.username,
-      email: this.usuario.email
+      email: this.usuario.email,
+      avatar: avatarObj
     };
 
     this.userService.updateProfile(datosActualizados).subscribe({
       next: (actualizado) => {
+        // Opcional: actualizar usuario localmente si quieres antes del logout
         this.usuario = {
           ...this.usuario,
           username: actualizado.username || this.usuario.username,
@@ -73,7 +100,10 @@ export class UserProfileComponent implements OnInit {
           roles: actualizado.roles || this.usuario.roles,
           enabled: actualizado.enabled ?? this.usuario.enabled
         };
-        this.router.navigate(['/profile']);
+
+        // Hacer logout para limpiar token y redirigir a login
+        this.authService.logout();
+        this.router.navigate(['/login']);
       },
       error: err => {
         console.error('Error al actualizar perfil', err);

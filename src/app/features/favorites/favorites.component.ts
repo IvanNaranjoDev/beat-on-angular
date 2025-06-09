@@ -13,7 +13,7 @@ import { firstValueFrom } from 'rxjs';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './favorites.component.html',
-  styleUrl: './favorites.component.scss'
+  styleUrls: ['./favorites.component.scss']
 })
 export class FavoritesComponent implements OnInit {
   favorites: Instrumental[] = [];
@@ -35,6 +35,7 @@ export class FavoritesComponent implements OnInit {
       this.likeService.getLikesByUserId(userId).subscribe({
         next: (likes: Like[]) => {
           this.likes = likes;
+          this.favorites = []; // limpiar por si acaso
           const instrumentalIds = likes.map(like => like.instrumentalId);
 
           instrumentalIds.forEach(id => {
@@ -70,7 +71,11 @@ export class FavoritesComponent implements OnInit {
 
       if (likeToDelete) {
         this.likeService.deleteLike(likeToDelete.id).subscribe({
-          next: () => {
+          next: (response: string) => {
+            // Response es texto, p.ej. 'Like eliminado con éxito'
+            console.log(response);
+
+            // Actualizar la lista local sin recargar página
             this.favorites = this.favorites.filter(inst => inst.id !== instId);
             this.likes = this.likes.filter(like => like.id !== likeToDelete.id);
           },

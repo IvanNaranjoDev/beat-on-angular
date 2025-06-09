@@ -12,7 +12,15 @@ export class AuthService {
   private token = new BehaviorSubject<string | null>(null);
   private role = new BehaviorSubject<string | null>(null);
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {
+    if (this.isBrowser()) {
+      const storedToken = localStorage.getItem('access_token');
+      if (storedToken) {
+        this.token.next(storedToken);
+        this.role.next(this.extractRoleFromToken(storedToken));
+      }
+    }
+  }
 
   login(username: string, password: string): Observable<{ token: string }> {
     return this.http.post<{ token: string }>(
@@ -32,8 +40,11 @@ export class AuthService {
   }
 
   setToken(token: string): void {
-    if (!token || token.split('.').length !== 3) return; // Validación básica
+    if (!token || token.split('.').length !== 3) return;
     this.token.next(token);
+    if (this.isBrowser()) {
+      localStorage.setItem('access_token', token);
+    }
     this.role.next(this.extractRoleFromToken(token));
   }
 
@@ -83,6 +94,14 @@ export class AuthService {
   logout(): void {
     this.token.next(null);
     this.role.next(null);
+    if (this.isBrowser()) {
+      localStorage.removeItem('access_token');
+    }
     this.router.navigate(['/']);
+  }
+
+  //TOKEN LOCALSTORAGE
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
   }
 }

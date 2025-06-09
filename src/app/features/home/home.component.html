@@ -1,4 +1,4 @@
-<div class="mt-3 bg-stone-300 mx-auto w-[90vw] flex flex-col p-1">
+<div class="mt-3 mx-auto w-[90vw] flex flex-col p-1 mb-7">
     <h1 class="text-[64px] inter-font font-bold text-stone-950">¡Bienvenido a Beat-On!</h1>
     <h2 class="text-2xl inter-font text-stone-950 mt-5 w-[80%]">Beat-On es la aplicación ideal para crear y compartir instrumentales. <br>
         Explora los trabajos de nuestros usuarios y recoge inspiración para tus creaciones.
@@ -8,15 +8,99 @@
     <img class="mt-10 rounded-2xl" src="assets/Banner-1-proyecto.png" alt="banner">
 
     <h1 class="text-5xl inter-font font-bold text-stone-950 mt-[150px] mb-8">Qué puedes hacer con nosotros.</h1>
-    <div class="flex flex-row justify-between">
-        <div class="bg-red-500 w-[30%]">
-            <div class="bg-stone-950 rounded-lg"></div>
+    <section class="px-4 py-8 max-w-7xl mx-auto w-full">
+        <div class="flex flex-col md:flex-row justify-between gap-8">
+            <!-- Columna 1 (Izquierda) -->
+            <div class="flex flex-col items-center text-center">
+            <img
+                src="assets/First-col-home.png"
+                alt="Imagen 1"
+                class="w-[400px] h-[250px] md:h-[400px] object-cover rounded-xl shadow-md mb-4"
+            />
+            <h3 class="text-2xl font-semibold mb-2">Creación de instrumentales</h3>
+            <p class="text-gray-600 max-w-md">Utiliza la función de mesa de trabajo crear nuevos proyectos.</p>
+            </div>
+
+            <!-- Columna 2 (Derecha) -->
+            <div class="flex flex-col items-center text-center">
+            <img
+                src="assets/Second-col-home.png"
+                alt="Imagen 2"
+                class="w-[400px] h-[250px] md:h-[400px] object-cover rounded-xl shadow-md mb-4"
+            />
+            <h3 class="text-2xl font-semibold mb-2">Compartir y explorar</h3>
+            <p class="text-gray-600 max-w-md">Comparte con los usuarios tus proyectos y descubre ideas.</p>
+            </div>
         </div>
-        <div class="bg-green-500 w-[30%]">
-            <div class="bg-stone-950 rounded-lg"></div>
+    </section>
+
+    <section class="px-4 py-12 max-w-7xl mx-auto w-full">
+        <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
+            <!-- Columna de texto -->
+            <div class="flex-1">
+            <h2 class="text-3xl font-bold mb-6">Qué encontrarás aquí.</h2>
+
+            <div class="mb-6">
+                <h4 class="text-lg font-semibold">Librería de sonidos</h4>
+                <p class="text-gray-500">Aprovecha nuestra gran librería de sonidos para desatar tu creatividad.</p>
+            </div>
+
+            <div class="mb-6">
+                <h4 class="text-lg font-semibold">Mesa de trabajo</h4>
+                <p class="text-gray-500">En la mesa de trabajo podrás aprovechar todas las funcionalidades de creación de instrumentales.</p>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-semibold">Personalización de los sistemas</h4>
+                <p class="text-gray-500">Realiza todos los procesos de la instrumental como tú quieras. Sin restricciones.</p>
+            </div>
+            </div>
+
+            <!-- Columna de imagen -->
+            <div class="flex-1 flex justify-end">
+            <img
+                src="assets/Logo-var-1.png"
+                alt="Imagen demostrativa"
+                class="w-[400px] h-[250px] md:h-[400px] object-cover rounded-lg shadow-md bg-[#22C55E]"
+            />
+            </div>
         </div>
-        <div class="bg-blue-500 w-[30%]">
-            <div class="bg-stone-950 rounded-lg"></div>
+    </section>
+
+    <h1 class="text-5xl inter-font font-bold text-stone-950 mt-[150px] mb-8">Explorar Proyectos</h1>
+    <div *ngIf="publicInstrumentals.length > 0; else noDataPublic" class="flex flex-wrap justify-center gap-6 px-4">
+        <div *ngFor="let inst of publicInstrumentals" class="bg-white shadow-md rounded-xl p-4 flex gap-1 h-48 w-72 sm:w-80 md:w-96 mx-auto">
+            <img [src]="environment.apiUrl + '/uploads/' + inst.coverUrl" alt="Portada" class="w-32 h-32 sm:w-40 sm:h-40 rounded-xl object-cover border" />
+
+            <div class="ml-3 flex flex-col min-w-0 justify-center">
+                <h3 class="text-xl sm:text-2xl font-medium truncate">{{ inst.instName }}</h3>
+                <p class="text-sm text-gray-500 mt-1">BPM: {{ inst.bpm }}</p>
+            </div>
+
+            <div class="flex flex-col items-center justify-around h-full ml-auto">
+                <button (click)="addToFavorites(inst.id)" class="w-6 h-6 mb-4">
+                    <svg *ngIf="!isFavorite(inst.id)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-green-600">
+                        <path d="M12,8,10.7,6.8a4.7,4.7,0,0,0-6.4,0,4.7,4.7,0,0,0,0,6.4L12,21l7.7-7.8a4.7,4.7,0,0,0,0-6.4,4.7,4.7,0,0,0-6.4,0Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+
+                    <svg *ngIf="isFavorite(inst.id)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-green-600">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 
+                        4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 
+                        19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" 
+                        fill="currentColor"/>
+                    </svg>
+                </button>
+
+                <button class="w-12 h-12 p-2 bg-black text-white rounded-full text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-stone-200">
+                    <polygon points="5.2 12 5.2 3 13 7.5 20.8 12 13 16.5 5.2 21 5.2 12" fill="currentColor" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                </button>
+            </div>
         </div>
     </div>
+
+    <ng-template #noDataPublic>
+    <p class="text-gray-500 text-center mt-10">No hay instrumentales públicas aún.</p>
+    </ng-template>
 </div>

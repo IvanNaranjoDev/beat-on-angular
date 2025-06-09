@@ -49,9 +49,10 @@ export class LikeService {
     });
   }
 
-  deleteLike(id: number): Observable<void> {
-    return this.http.delete<void>(`${environment.apiUrl}/likes/${id}`, {
-      headers: this.getHeaders()
+  deleteLike(id: number): Observable<any> {
+    return this.http.delete(`${environment.apiUrl}/likes/${id}`, {
+      headers: this.getHeaders(),
+      responseType: 'text' as 'json'
     });
   }
 }

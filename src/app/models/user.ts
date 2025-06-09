@@ -5,7 +5,7 @@ export interface Role {
   
 export interface Avatar {
     id: number;
-    path: string;
+    path?: string;
 }
   
 export interface User {
