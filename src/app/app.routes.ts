@@ -16,6 +16,7 @@ import { EmailFormComponent } from './features/email-form/email-form.component';
 import { SequencerComponent } from './features/sequencer/sequencer.component';
 import { MyInstrumentalsComponent } from './features/my-instrumentals/my-instrumentals.component';
 import { MySequencerComponent } from './features/my-sequencer/my-sequencer.component';
+import { FavoritesComponent } from './features/favorites/favorites.component';
 
 export const routes: Routes = [
     {
@@ -37,6 +38,10 @@ export const routes: Routes = [
     },
     {
         path: 'my-instrumentals', component : MyInstrumentalsComponent,
+        canActivate: [authGuard],
+    },
+    {
+        path: 'favorites', component : FavoritesComponent,
         canActivate: [authGuard],
     },
     {
