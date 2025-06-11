@@ -72,6 +72,12 @@ export class HomeComponent implements OnInit {
   }
 
   goToPublicView(id: number): void {
-    this.router.navigate(['/public', id]);
+    this.authService.isLoggedIn().subscribe(isLogged => {
+      if (isLogged) {
+        this.router.navigate(['/public', id]);
+      } else {
+        this.router.navigate(['/login']);
+      }
+    });
   }
 }
