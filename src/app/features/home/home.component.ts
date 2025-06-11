@@ -38,10 +38,9 @@ export class HomeComponent implements OnInit {
     try {
       const { userId } = await firstValueFrom(this.authService.getUserId());
 
-      // Verifica si ya existe el like para evitar duplicados
       const exists = this.likes.some(like => like.instrumentalId === instId && like.userId === userId);
       if (exists) {
-        return; // Ya está en favoritos, no hace falta agregar
+        return;
       }
 
       const like = {
