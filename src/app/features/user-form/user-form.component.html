@@ -1,55 +1,89 @@
-<div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-md">
-    <h1 class="text-2xl font-bold mb-6 text-center">Crear / Actualizar Usuarios</h1>
+<h1 class="p-4 text-5xl md:text-[64px] font-semibold">Crear / Actualizar Usuarios</h1>
 
-    <form (ngSubmit)="guardarUsuario()">
-        <!-- Username -->
-        <div class="mb-4">
-            <label for="username" class="block text-gray-700 font-medium">Username</label>
-            <input type="text" id="username" [(ngModel)]="usuario.username" name="username"
-                class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:border-blue-400"
-                placeholder="Introduce el nombre de usuario" required>
-        </div>
+<form (ngSubmit)="guardarUsuario()" class="p-4 max-w-xl">
+  <!-- Username -->
+  <div class="mb-4 flex flex-col">
+    <label for="username" class="text-base font-medium mb-1">Nombre de usuario <span class="text-red-600">*</span></label>
+    <input
+      type="text"
+      id="username"
+      [(ngModel)]="usuario.username"
+      name="username"
+      class="border-stone-200 px-2 py-1 w-[250px] rounded-xs"
+      placeholder="Introduce el nombre de usuario"
+      required
+    />
+  </div>
 
-        <!-- Email -->
-        <div class="mb-4">
-            <label for="email" class="block text-gray-700 font-medium">Email <span class="text-red-500">*</span></label>
-            <input type="email" id="email" [(ngModel)]="usuario.email" name="email"
-                class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:border-blue-400"
-                placeholder="correo@ejemplo.com" required>
-        </div>
+  <!-- Email -->
+  <div class="mb-4 flex flex-col">
+    <label for="email" class="text-base font-medium mb-1">Email <span class="text-red-600">*</span></label>
+    <input
+      type="email"
+      id="email"
+      [(ngModel)]="usuario.email"
+      name="email"
+      class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs"
+      placeholder="correo@ejemplo.com"
+      required
+    />
+  </div>
 
-        <!-- Contraseña (solo en modo 'create') -->
-        <div class="mb-4" *ngIf="mode === 'create'">
-            <label for="password" class="block text-gray-700 font-medium">Contraseña</label>
-            <input type="password" id="password" [(ngModel)]="usuario.password" name="password"
-                class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:border-blue-400"
-                placeholder="Introduce la contraseña" required>
-        </div>
+  <!-- Contraseña -->
+  <div class="mb-4 flex flex-col" *ngIf="mode === 'create'">
+    <label for="password" class="text-base font-medium mb-1">Contraseña <span class="text-red-600">*</span></label>
+    <input
+      type="password"
+      id="password"
+      [(ngModel)]="usuario.password"
+      name="password"
+      class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs"
+      placeholder="Introduce la contraseña"
+      required
+    />
+  </div>
 
-        <!-- Activado -->
-        <div class="mb-4 flex items-center">
-            <label for="activated" class="text-gray-700 font-medium">Activado</label>
-            <input type="checkbox" id="activated" [(ngModel)]="usuario.enabled" name="enabled"
-                class="ml-4 h-6 w-6 text-blue-600 focus:ring focus:border-blue-400">
-        </div>
+  <!-- Activado -->
+  <div class="mb-6">
+    <label for="enabled" class="block text-base font-medium mb-2">Activado</label>
+    <label class="relative inline-flex items-center cursor-pointer">
+        <input
+        type="checkbox"
+        id="enabled"
+        name="enabled"
+        [(ngModel)]="usuario.enabled"
+        class="sr-only peer"
+        />
+        <div
+        class="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer dark:bg-gray-400 peer-checked:bg-emerald-500 transition-all duration-300"
+        ></div>
+        <div
+        class="absolute left-0.5 top-0.5 w-5 h-5 bg-white border border-gray-300 rounded-full transition-transform duration-300 transform peer-checked:translate-x-5"
+        ></div>
+    </label>
+  </div>
 
-        <!-- Rol -->
-        <div class="mb-4">
-            <label class="block text-gray-700 font-medium">Rol</label>
-            <select [(ngModel)]="usuario.roles[0].id" name="roles"
-                class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:border-blue-400">
-                <option *ngFor="let rol of rolesDisponibles" [value]="rol.id">
-                    {{ rol.name }}
-                </option>
-            </select>
-        </div>
+  <!-- Rol -->
+  <div class="mb-6 flex flex-col">
+    <label for="roles" class="text-base font-medium mb-1">Rol <span class="text-red-600">*</span></label>
+    <select
+      id="roles"
+      [(ngModel)]="usuario.roles[0].id"
+      name="roles"
+      class="border border-stone-200 px-3 py-2 rounded-md"
+      required
+    >
+      <option *ngFor="let rol of rolesDisponibles" [value]="rol.id">
+        {{ rol.name }}
+      </option>
+    </select>
+  </div>
 
-        <!-- Botón -->
-        <div class="mt-6">
-            <button type="submit"
-                class="w-full bg-green-500 text-white py-2 px-4 rounded-lg shadow-md hover:bg-green-600 focus:ring focus:border-green-400">
-                {{ mode === 'create' ? 'Crear' : 'Actualizar' }}
-            </button>
-        </div>
-    </form>
-</div>
+  <!-- Botón -->
+  <button
+    type="submit"
+    class="mx-auto w-full border-3 border-emerald-500 text-emerald-500 py-2 rounded hover:bg-emerald-500 hover:text-white transition-colors"
+  >
+    {{ mode === 'create' ? 'Crear Usuario' : 'Actualizar Usuario' }}
+  </button>
+</form>

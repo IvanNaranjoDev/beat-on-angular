@@ -16,11 +16,16 @@
             <button (click)="desplegarMenu()" class="md:hidden text-2xl text-black focus:outline-none">{{menuIcon}}</button>
 </header>
 
-<nav *ngIf="isMenuOpen" class="md:hidden header-beat-mobile p-2 space-y-1 text-lg text-black mt-2 flex flex-col">
-    <a *ngIf="isAdmin()"  routerLink="/users" class="font-small p-1">Usuarios</a>
-    <a *ngIf="isManager()" routerLink="/categories" class="font-small p-1">Categorías</a>
-    <a *ngIf="isUser()" routerLink="/profile" class="font-medium p-2">Mi perfil</a>
-    <a *ngIf="!isLoggedIn" routerLink="/register" class=" font-small p-1">Registrarse</a>
-    <a *ngIf="!isLoggedIn" routerLink="/login" class="text-[#FDD142] bg-stone-950 font-small py-1 px-3 rounded-md">Iniciar Sesión</a>
-    <a *ngIf="isLoggedIn" (click)="logout()" class="hover:underline font-small p-2">Cerrar Sesión</a>
+<nav *ngIf="isMenuOpen" class="md:hidden bg-zinc-200 p-2 space-y-1 text-lg text-black mt-2 mb-2 flex flex-col md:h-[0px]">
+    <a *ngIf="isAdmin()"  routerLink="/users" class="font-medium p-2 md:hidden">Usuarios</a>
+    <a *ngIf="isAdmin()"  routerLink="/mails" class="font-medium p-2 md:hidden">Enviar Notificaciones</a>
+    <a *ngIf="isManager()" routerLink="/categories" class="font-medium p-2 md:hidden">Categorías</a>
+    <a *ngIf="isManager()" routerLink="/sounds" class="font-medium p-2 md:hidden">Sonidos</a>
+    <a *ngIf="isUser()" routerLink="/profile" class="font-medium p-2 md:hidden">Mi perfil</a>
+    <a *ngIf="isUser()" routerLink="/sequencer" class="font-medium p-2 md:hidden">Crear Instrumental</a>
+    <a *ngIf="isUser()" routerLink="/my-instrumentals" class="font-medium p-2 md:hidden">Mis Instrumentales</a>
+    <a *ngIf="isUser()" routerLink="/favorites" class="font-medium p-2 md:hidden">Favoritos</a>
+    <a *ngIf="!isLoggedIn" routerLink="/register" class=" font-medium p-2 md:hidden">Registrarse</a>
+    <a *ngIf="!isLoggedIn" routerLink="/login" class="text-[#FDD142] bg-stone-950 font-medium py-2 px-3 rounded-md md:hidden">Iniciar Sesión</a>
+    <a *ngIf="isLoggedIn" (click)="logout()" class="hover:underline font-medium p-2 md:hidden">Cerrar Sesión</a>
 </nav>

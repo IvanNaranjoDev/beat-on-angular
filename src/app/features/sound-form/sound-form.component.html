@@ -1,99 +1,128 @@
-<div class="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-md">
-  <h1 class="text-2xl font-bold mb-6 text-center">
-    {{ mode === 'edit' ? 'Actualizar Sonido' : 'Crear Sonido' }}
-  </h1>
+<h1 class="p-4 text-5xl md:text-[64px] font-semibold">{{ mode === 'edit' ? 'Actualizar Sonido' : 'Crear Sonido' }}</h1>
 
-  <form (ngSubmit)="guardarSonido()" #soundForm="ngForm">
+  <form (ngSubmit)="guardarSonido()" #soundForm="ngForm" class="p-4">
     <!-- Nombre -->
     <div class="mb-4">
-      <label for="name" class="block text-gray-700 font-medium">Nombre del sonido</label>
+      <label for="name" class="block text-gray-700 font-medium mb-1">Nombre del sonido<span class="text-red-600"> *</span></label>
       <input
         type="text"
         id="name"
         [(ngModel)]="sound.name"
         name="name"
         required
-        class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:border-blue-400"
+        class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs"
         placeholder="Introduce el nombre del sonido"
       />
     </div>
 
-    <!-- Duración (auto-calculada) -->
+    <!-- Duración (readonly) -->
     <div class="mb-4">
-      <label for="duration" class="block text-gray-700 font-medium">Duración (mm:ss)</label>
+      <label for="duration" class="block text-gray-700 font-medium mb-1">Duración (mm:ss)</label>
       <input
         type="text"
         id="duration"
         [(ngModel)]="sound.duration"
         name="duration"
         readonly
-        class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg bg-gray-100"
+        class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs"
         placeholder="0:00"
       />
     </div>
 
-    <!-- Habilitado -->
-    <div class="mb-4">
-      <label for="enabled" class="block text-gray-700 font-medium">¿Habilitado?</label>
-      <select
-        id="enabled"
-        [(ngModel)]="sound.enabled"
-        name="enabled"
-        class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:border-blue-400"
-      >
-        <option [ngValue]="true">Sí</option>
-        <option [ngValue]="false">No</option>
-      </select>
+    <!-- Habilitado como switch -->
+    <div class="mb-6">
+      <label for="enabled" class="block text-gray-700 font-medium mb-2">¿Habilitado?</label>
+      <label class="relative inline-flex items-center cursor-pointer">
+        <input type="checkbox" id="enabled" name="enabled" [(ngModel)]="sound.enabled" class="sr-only peer" />
+        <div class="w-11 h-6 bg-gray-300 rounded-full peer-checked:bg-emerald-500 transition-colors duration-300"></div>
+        <div class="absolute left-0.5 top-0.5 w-5 h-5 bg-white border border-gray-300 rounded-full transition-transform duration-300 transform peer-checked:translate-x-5"></div>
+        <span class="ml-3 text-sm text-gray-700 font-medium">{{ sound.enabled ? 'Sí' : 'No' }}</span>
+      </label>
     </div>
 
     <!-- Categoría -->
     <div class="mb-4">
-      <label for="categoryId" class="block text-gray-700 font-medium">Categoría</label>
+      <label for="categoryId" class="block text-gray-700 font-medium mb-1">Categoría<span class="text-red-600"> *</span></label>
       <select
         id="categoryId"
         [(ngModel)]="sound.categoryId"
         name="categoryId"
         required
-        class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:border-blue-400"
+        class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs"
       >
-        <option *ngFor="let category of categories" [value]="category.id">
-          {{ category.name }}
-        </option>
+        <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
       </select>
     </div>
 
     <!-- Archivo de sonido -->
-    <div class="mb-4">
-      <label for="audioUrl" class="block text-gray-700 font-medium">Archivo de audio (MP3)</label>
-      <input
-        type="file"
-        id="audioUrl"
-        (change)="onAudioSelected($event)"
-        accept=".mp3"
-        class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:border-blue-400"
-        [required]="mode === 'create'"
-      />
+    <div class="mb-6">
+      <label for="audioUrl" class="block text-gray-700 font-medium mb-2">Archivo de audio (MP3)</label>
+
+      <div class="relative group">
+        <input
+          type="file"
+          id="audioUrl"
+          (change)="onAudioSelected($event)"
+          accept=".mp3"
+          class="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer"
+          [required]="mode === 'create'"
+        />
+
+        <div class="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-300 rounded-lg p-4 bg-gray-50 group-hover:bg-gray-100 transition-colors text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-zinc-400 w-8 h-8">
+            <path d="M9,18V5L21,3V16" fill="none" stroke="currentColor"/>
+            <circle cx="6" cy="18" r="3" fill="none" stroke="currentColor"/>
+            <circle cx="18" cy="16" r="3" fill="none" stroke="currentColor"/>
+          </svg>
+
+          <p class="text-gray-700 font-medium text-sm">Haz clic o arrastra un archivo MP3</p>
+          <p class="text-gray-500 text-xs">Formato recomendado: .mp3, duración corta</p>
+
+          <span *ngIf="selectedAudioFile" class="text-sm text-blue-600 truncate max-w-xs">
+            Archivo: {{ selectedAudioFile.name }}
+          </span>
+        </div>
+      </div>
     </div>
 
-    <!-- Imagen -->
-    <div class="mb-4">
-      <label for="imageUrl" class="block text-gray-700 font-medium">Imagen del sonido (PNG, JPG)</label>
-      <input
-        type="file"
-        id="imageUrl"
-        (change)="onImageSelected($event)"
-        accept=".png,.jpg,.jpeg"
-        class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:border-blue-400"
-        [required]="mode === 'create'"
-      />
+    <!-- Icono del sonido -->
+    <div class="mb-6">
+      <label for="icon_url" class="block text-gray-700 font-medium mb-2">Icono (PNG)</label>
+
+      <div class="relative group">
+        <input
+          type="file"
+          id="icon_url"
+          (change)="onImageSelected($event)"
+          accept=".png"
+          class="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer"
+          [required]="mode === 'create'"
+        />
+
+        <div class="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-300 rounded-lg p-4 bg-gray-50 group-hover:bg-gray-100 transition-colors text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-zinc-400 w-8 h-8">
+            <rect x="2.5" y="5" width="19" height="14" fill="none" stroke="currentColor"/>
+            <polyline points="17.5 19 7.5 9 2.5 14" fill="none" stroke="currentColor"/>
+            <polyline points="21.5 17 16.5 12 13.5 15" fill="none" stroke="currentColor"/>
+          </svg>
+
+          <p class="text-gray-700 font-medium text-sm">Haz clic o arrastra un archivo PNG</p>
+          <p class="text-gray-500 text-xs">Tamaño recomendado: 100x100 px</p>
+
+          <span *ngIf="selectedImageFile" class="text-sm text-blue-600 truncate max-w-xs">
+            Archivo: {{ selectedImageFile.name }}
+          </span>
+        </div>
+      </div>
     </div>
 
-    <!-- Botón de envío -->
-    <button
-      type="submit"
-      class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
-    >
-      {{ mode === 'edit' ? 'Actualizar Sonido' : 'Guardar Sonido' }}
-    </button>
+    <!-- Botón -->
+    <div class="mt-6">
+      <button
+        type="submit"
+        class="mx-auto w-full border-3 border-emerald-500 text-emerald-500 py-2 rounded hover:bg-emerald-500 hover:text-white transition-colors"
+      >
+        {{ mode === 'edit' ? 'Actualizar Sonido' : 'Guardar Sonido' }}
+      </button>
+    </div>
   </form>
-</div>

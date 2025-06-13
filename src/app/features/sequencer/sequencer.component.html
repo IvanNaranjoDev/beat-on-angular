@@ -1,8 +1,6 @@
 <div class="p-5 w-[90%] h-full mx-auto flex flex-col">
-  <!-- Formulario para guardar el instrumental -->
   <form (submit)="saveInstrumental()" class="rounded-lg space-y-6 mt-5">
     <div class="flex flex-row justify-between items-start border-b-2 border-gray-200 pb-4">
-      <!-- Nombre del instrumental -->
       <div class="flex flex-row border-b-2 border-gray-400 focus-within:border-stone-600 w-full max-w-2xl">
         <input id="instName" [(ngModel)]="instName" name="instName" type="text"
                class="text-5xl font-semibold bg-transparent focus:outline-none text-stone-950 placeholder-stone-400 w-full"
@@ -11,32 +9,30 @@
       </div>
     </div>
 
-    <!-- Selector de portada -->
     <div class="flex flex-col w-full mt-8">
       <label class="text-stone-950 font-semibold mb-3 text-2xl">Portada:</label>
       <div class="flex flex-col md:flex-row gap-6 items-start">
-        <div class="relative flex-1 max-w-md">
-          <input id="coverFile" type="file" (change)="onFileSelected($event)" accept="image/*" 
-                 class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" />
-          <div class="p-4 rounded-lg border-2 border-dashed border-zinc-400 flex items-center justify-between bg-zinc-100 hover:bg-zinc-200 transition-colors h-64">
+        <div class="relative w-full max-w-full sm:max-w-md flex-1 px-2 sm:px-0">
+          <input id="coverFile" type="file" (change)="onFileSelected($event)" accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"/>
+          <div class="p-4 sm:p-5 rounded-lg border-2 border-dashed border-zinc-400 flex items-center justify-between bg-zinc-100 hover:bg-zinc-200 transition-colors h-48 sm:h-64">
             <div class="text-center w-full">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-zinc-500 h-12 w-12 mx-auto mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-zinc-500 h-10 w-10 sm:h-12 sm:w-12 mx-auto mb-2 sm:mb-3">
                 <path fill="currentColor" d="M19 13a1 1 0 0 0-1 1v.38l-1.48-1.48a2.79 2.79 0 0 0-3.93 0l-.7.7-2.48-2.49a2.87 2.87 0 0 0-3.93 0L4 12.6V7a1 1 0 0 1 1-1h7a1 1 0 0 0 0-2H5a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3v-5a1 1 0 0 0-1-1zM5 20a1 1 0 0 1-1-1v-3.57l2.9-2.89a.79.79 0 0 1 1.09 0l3.17 3.17L15.45 20zm13-1a.89.89 0 0 1-.18.53L13.31 15l.7-.7a.78.78 0 0 1 1.1 0L18 17.22zm3-13a1 1 0 0 0-1-1h-3a1 1 0 0 0 0 2h3a1 1 0 0 0 1-1z"/>
               </svg>
-              <span class="truncate text-zinc-600 font-medium text-lg block">
+              <span class="truncate text-zinc-600 font-medium text-base sm:text-lg block">
                 {{ coverFile ? coverFile.name : 'Arrastra una imagen o haz clic para seleccionar' }}
               </span>
-              <p class="text-zinc-500 text-sm mt-2">Recomendado: 1000x1000 px, formato JPG o PNG</p>
+              <p class="text-zinc-500 text-xs sm:text-sm mt-1 sm:mt-2">
+                Recomendado: 1000x1000 px, formato JPG o PNG
+              </p>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Controles de BPM y reproducción -->
     <div class="flex flex-wrap items-center justify-between gap-4 mt-8 mb-6 p-4 bg-zinc-100 rounded-lg">
       <div class="flex items-center gap-4">
-        <!-- Selector de BPM -->
         <div class="flex items-center gap-3">
           <label for="bpm" class="text-stone-950 font-semibold text-xl">BPM:</label>
           <select id="bpm" [(ngModel)]="bpm" name="bpm" (change)="onBpmChange()"
@@ -46,7 +42,6 @@
         </div>
       </div>
 
-      <!-- Botón de reproducción -->
       <button type="button" (click)="togglePlay()"
               class="px-8 py-3 rounded-full bg-green-600 text-white hover:bg-green-700 transition-colors flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6 fill-current">
@@ -57,12 +52,9 @@
       </button>
     </div>
 
-    <!-- SECUENCIADOR -->
     <div class="w-full bg-stone-900 p-6 rounded-lg space-y-6 shadow-lg">
       <div *ngFor="let row of rows; let rowIndex = index" class="row mb-8 last:mb-0">
-        <!-- Encabezado de fila -->
         <div class="flex flex-col sm:flex-row sm:items-center mb-4 gap-4">
-          <!-- Categoría -->
           <div class="flex items-center gap-3 min-w-[200px]">
             <div class="w-6 h-6 rounded-full flex-shrink-0"
                  [style.backgroundColor]="row.category.color"
@@ -70,7 +62,6 @@
             <span class="text-white font-semibold text-lg">{{ row.category.name }}</span>
           </div>
 
-          <!-- Selección de sonido -->
           <select [(ngModel)]="row.selectedSound" class="flex-grow p-2 rounded bg-zinc-800 text-white border border-zinc-700"
                   [ngModelOptions]="{ standalone: true }">
             <option [ngValue]="null">-- Seleccionar sonido --</option>
@@ -80,7 +71,6 @@
           </select>
         </div>
 
-        <!-- Pasos del secuenciador -->
         <div class="grid grid-cols-12 gap-2 mt-2">
           <button type="button" class="h-14 rounded text-white transition-all relative"
                   *ngFor="let step of row.steps; let colIndex = index"
@@ -94,7 +84,6 @@
       </div>
     </div>
 
-    <!-- Botones de acción -->
     <div class="flex justify-end gap-4 mt-8">
       <button type="submit" 
               class="px-8 py-3 rounded-full bg-green-600 text-white hover:bg-green-700 transition-colors flex items-center gap-2">

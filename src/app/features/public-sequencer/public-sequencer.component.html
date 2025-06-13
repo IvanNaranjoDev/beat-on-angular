@@ -1,11 +1,8 @@
 <div class="p-5 w-[90%] h-full mx-auto flex flex-col space-y-10">
-  <!-- Encabezado -->
   <div class="flex flex-row justify-between items-start border-b-2 border-gray-200 pb-4">
-    <!-- Nombre del instrumental (solo lectura) -->
     <h1 class="text-5xl font-semibold text-stone-950">{{ instrumental.instName }}</h1>
   </div>
 
-  <!-- Portada del instrumental -->
   <div class="flex flex-col w-full">
     <label class="text-stone-950 font-semibold mb-3 text-2xl">Portada:</label>
     <div *ngIf="instrumental?.coverUrl" class="relative">
@@ -13,23 +10,19 @@
     </div>
   </div>
 
-  <!-- Información adicional -->
   <div class="flex flex-wrap items-center justify-between gap-4 p-4 bg-zinc-100 rounded-lg">
-    <div class="flex items-center gap-6">
-      <!-- BPM -->
+    <div class="flex flex-col md:flex-row md:items-center gap-6">
       <div class="flex items-center gap-3">
         <span class="text-stone-950 font-semibold text-xl">BPM:</span>
         <span class="text-lg text-zinc-700">{{ instrumental.bpm }}</span>
       </div>
 
-      <!-- Estado público -->
       <div class="flex items-center gap-3">
         <span class="text-stone-950 font-semibold text-xl">Visibilidad:</span>
         <span class="text-lg text-zinc-700">{{ instrumental.public ? 'Público' : 'Privado' }}</span>
       </div>
     </div>
 
-    <!-- Botón de reproducción -->
     <button type="button" (click)="togglePlay()"
             class="px-8 py-3 rounded-full bg-green-600 text-white hover:bg-green-700 transition-colors flex items-center gap-2">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6 fill-current">
@@ -40,10 +33,8 @@
     </button>
   </div>
 
-  <!-- SECUENCIADOR -->
   <div class="w-full bg-stone-900 p-6 rounded-lg space-y-6 shadow-lg">
     <div *ngFor="let row of rows; let rowIndex = index" class="row mb-8 last:mb-0">
-      <!-- Encabezado de fila -->
       <div class="flex flex-col sm:flex-row sm:items-center mb-4 gap-4">
         <div class="flex items-center gap-3 min-w-[200px]">
           <div class="w-6 h-6 rounded-full flex-shrink-0"
@@ -52,13 +43,11 @@
           <span class="text-white font-semibold text-lg">{{ row.category.name }}</span>
         </div>
 
-        <!-- Sonido seleccionado (solo lectura) -->
         <div class="flex-grow p-2 rounded bg-zinc-800 text-white border border-zinc-700">
           {{ row.selectedSound?.name || 'Sin sonido' }}
         </div>
       </div>
 
-      <!-- Pasos -->
       <div class="grid grid-cols-12 gap-2 mt-2">
         <div *ngFor="let step of row.steps; let colIndex = index"
              class="h-14 rounded transition-all relative"

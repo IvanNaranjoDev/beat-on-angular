@@ -35,35 +35,44 @@ export class HomeComponent implements OnInit {
   }
 
   async addToFavorites(instId: number): Promise<void> {
-    try {
-      const { userId } = await firstValueFrom(this.authService.getUserId());
-
-      const exists = this.likes.some(like => like.instrumentalId === instId && like.userId === userId);
-      if (exists) {
+    this.authService.isLoggedIn().subscribe(async isLogged => {
+      if (!isLogged) {
+        console.log('Añadir a favoritos no está disponible para usuarios anónimos.');
         return;
       }
 
-      const like = {
-        userId: userId,
-        instrumentalId: instId
-      };
+      try {
+        const { userId } = await firstValueFrom(this.authService.getUserId());
 
-      this.likeService.createLike(like).subscribe({
-        next: (createdLike) => {
-          const instrumental = this.publicInstrumentals.find(inst => inst.id === instId);
-          if (instrumental) {
-            this.favorites.push(instrumental);
-          }
-          this.likes.push(createdLike);
-        },
-        error: (err) => {
-          console.error('Error al añadir a favoritos:', err);
+        const exists = this.likes.some(
+          like => like.instrumentalId === instId && like.userId === userId
+        );
+        if (exists) {
+          return;
         }
-      });
 
-    } catch (error) {
-      console.error('Error al obtener userId:', error);
-    }
+        const like = {
+          userId: userId,
+          instrumentalId: instId
+        };
+
+        this.likeService.createLike(like).subscribe({
+          next: (createdLike) => {
+            const instrumental = this.publicInstrumentals.find(inst => inst.id === instId);
+            if (instrumental) {
+              this.favorites.push(instrumental);
+            }
+            this.likes.push(createdLike);
+          },
+          error: (err) => {
+            console.error('Error al añadir a favoritos:', err);
+          }
+        });
+
+      } catch (error) {
+        console.error('Error al obtener userId:', error);
+      }
+    });
   }
 
   isFavorite(instId: number): boolean {
