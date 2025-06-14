@@ -1,21 +1,21 @@
-<div class="shadow-xl w-[95%] md:w-[35vw] h-[75vh] mx-auto mt-8 border border-stone-200 rounded-lg flex flex-col items-center p-4">
+<div class="shadow-xl w-[95%] md:w-[55vw] h-[75vh] mx-auto mt-8 border border-stone-200 dark:border-neutral-800 rounded-lg flex flex-col items-center p-4">
     <img src="/assets/logo.ico" class="w-[200px] h-[200px]" alt="">
-    <h1 class="text-[40px] font-semibold">Registro</h1>
+    <h1 class="text-[40px] font-semibold dark:text-neutral-100">Registro</h1>
 
     <form (ngSubmit)="onSubmit()" class=" mt-8 flex flex-col items-left">
       <div class="mb-5 flex flex-col">
-        <label for="username" class="text-base font-medium mb-1">Nombre de usuario<span class="text-red-600"> *</span></label>
-        <input type="text" [(ngModel)]="username" name="username" id="username" class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs" placeholder="beat-onUser" required>
+        <label for="username" class="text-base font-medium mb-1 dark:text-neutral-100">Nombre de usuario<span class="text-red-600"> *</span></label>
+        <input type="text" [(ngModel)]="username" name="username" id="username" class="border border-stone-200 dark:border-neutral-800 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300" placeholder="beat-onUser" required>
       </div>
 
       <div class="mb-5 flex flex-col">
-        <label for="email" class="text-base font-medium mb-1">Correo Electrónico<span class="text-red-600"> *</span></label>
-        <input type="text" [(ngModel)]="email" name="email" id="email" class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs" placeholder="beat@onmail.com" required>
+        <label for="email" class="text-base font-medium mb-1 dark:text-neutral-100">Correo Electrónico<span class="text-red-600"> *</span></label>
+        <input type="text" [(ngModel)]="email" name="email" id="email" class="border border-stone-200 dark:border-neutral-800 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300" placeholder="beat@onmail.com" required>
       </div>
 
       <div class="flex flex-col">
-        <label for="password" class="text-base font-medium mb-1">Contraseña<span class="text-red-600"> *</span></label>
-        <input type="password" [(ngModel)]="password" name="password" id="password" placeholder="••••••••" class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs" required>
+        <label for="password" class="text-base font-medium mb-1 dark:text-neutral-100">Contraseña<span class="text-red-600"> *</span></label>
+        <input type="password" [(ngModel)]="password" name="password" id="password" placeholder="••••••••" class="border border-stone-200 dark:border-neutral-800 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300" required>
       </div>
       <button type="submit" class="bg-stone-950 text-neutral-100 p-2 mt-6 w-[120px] rounded-sm self-center">Crear Cuenta</button>
     </form>

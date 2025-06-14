@@ -1,4 +1,4 @@
-<header class="header-beat text-black p-4">
+<header class="header-beat text-black p-4 dark:bg-neutral-900">
             <a href="/" class="text-lg sm:text-2xl font-bold"><app-logo></app-logo></a>
             <nav class="hidden md:flex space-x-6">
                 <a *ngIf="isAdmin()"  routerLink="/users" class="font-medium p-2">Usuarios</a>
@@ -12,11 +12,20 @@
                 <a *ngIf="!isLoggedIn" routerLink="/register" class=" font-medium p-2">Registrarse</a>
                 <a *ngIf="!isLoggedIn" routerLink="/login" class="text-[#FDD142] bg-stone-950 font-medium py-2 px-3 rounded-md">Iniciar Sesión</a>
                 <a *ngIf="isLoggedIn" (click)="logout()" class="hover:underline font-medium p-2">Cerrar Sesión</a>
+                <button (click)="darkmode()" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition" [title]="isDarkMode ? 'Modo claro' : 'Modo oscuro'">
+                    <svg *ngIf="!isDarkMode" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-stone-950" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 0112.21 3a9 9 0 100 18 9 9 0 008.79-8.21z" />
+                    </svg>
+                    <svg *ngIf="isDarkMode" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-stone-950" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 3v1m0 16v1m8.66-9H21m-18 0h1m15.36 6.36l-.71.71M5.05 5.05l.71.71m12.02 0l.71-.71M5.05 18.95l.71-.71M12 8a4 4 0 100 8 4 4 0 000-8z" />
+                    </svg>
+                </button>
             </nav>
             <button (click)="desplegarMenu()" class="md:hidden text-2xl text-black focus:outline-none">{{menuIcon}}</button>
 </header>
 
-<nav *ngIf="isMenuOpen" class="md:hidden bg-zinc-200 p-2 space-y-1 text-lg text-black mt-2 mb-2 flex flex-col md:h-[0px]">
+<nav *ngIf="isMenuOpen" class="md:hidden bg-zinc-200 p-2 space-y-1 text-lg text-black mt-2 mb-2 flex flex-col md:h-[0px] dark:bg-zinc-800 dark:text-neutral-100">
     <a *ngIf="isAdmin()"  routerLink="/users" class="font-medium p-2 md:hidden">Usuarios</a>
     <a *ngIf="isAdmin()"  routerLink="/mails" class="font-medium p-2 md:hidden">Enviar Notificaciones</a>
     <a *ngIf="isManager()" routerLink="/categories" class="font-medium p-2 md:hidden">Categorías</a>
@@ -28,4 +37,13 @@
     <a *ngIf="!isLoggedIn" routerLink="/register" class=" font-medium p-2 md:hidden">Registrarse</a>
     <a *ngIf="!isLoggedIn" routerLink="/login" class="text-[#FDD142] bg-stone-950 font-medium py-2 px-3 rounded-md md:hidden">Iniciar Sesión</a>
     <a *ngIf="isLoggedIn" (click)="logout()" class="hover:underline font-medium p-2 md:hidden">Cerrar Sesión</a>
+    <button (click)="darkmode()" class="w-9 h-9 flex items-center justify-center rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition" [title]="isDarkMode ? 'Modo claro' : 'Modo oscuro'">
+        <svg *ngIf="!isDarkMode" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-stone-950" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 0112.21 3a9 9 0 100 18 9 9 0 008.79-8.21z" />
+        </svg>
+        <svg *ngIf="isDarkMode" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-stone-950 dark:text-neutral-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 3v1m0 16v1m8.66-9H21m-18 0h1m15.36 6.36l-.71.71M5.05 5.05l.71.71m12.02 0l.71-.71M5.05 18.95l.71-.71M12 8a4 4 0 100 8 4 4 0 000-8z" />
+        </svg>
+    </button>
 </nav>

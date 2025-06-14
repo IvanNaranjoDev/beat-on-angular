@@ -1,13 +1,13 @@
 <div class="mt-3 mx-auto w-[90vw] flex flex-col p-1 mb-7">
-    <h1 class="text-5xl lg:text-[64px] inter-font font-bold text-stone-950">¡Bienvenido a Beat-On!</h1>
-    <h2 class="text-2xl inter-font text-stone-950 mt-5 w-[80%]">Beat-On es la aplicación ideal para crear y compartir instrumentales. <br>
+    <h1 class="text-5xl lg:text-[64px] inter-font font-bold text-stone-950 dark:text-neutral-100">¡Bienvenido a Beat-On!</h1>
+    <h2 class="text-2xl inter-font text-stone-950 mt-5 w-[80%] dark:text-neutral-100">Beat-On es la aplicación ideal para crear y compartir instrumentales. <br>
         Explora los trabajos de nuestros usuarios y recoge inspiración para tus creaciones.
     </h2>
 
-    <button class="text-2xl inter-font text-neutral-100 bg-stone-950 mt-10 px-[32px] py-[20px] w-[160px] rounded-lg"><a href="#explorar">Explorar</a></button>
+    <button class="text-2xl inter-font text-neutral-100 bg-stone-950 mt-10 px-[32px] py-[20px] w-[160px] rounded-lg dark:text-stone-950 dark:bg-neutral-100"><a href="#explorar">Explorar</a></button>
     <img class="mt-10 rounded-2xl" src="assets/Banner-1-proyecto.png" alt="banner">
 
-    <h1 class="text-5xl inter-font font-bold text-stone-950 mt-[150px] mb-8">Qué puedes hacer con nosotros.</h1>
+    <h1 class="text-5xl inter-font font-bold text-stone-950 mt-[150px] mb-8 dark:text-neutral-100">Qué puedes hacer con nosotros.</h1>
     <section class="px-4 py-8 max-w-7xl mx-auto w-full">
         <div class="flex flex-col md:flex-row justify-between gap-8">
             <!-- Columna 1 (Izquierda) -->
@@ -17,8 +17,8 @@
                 alt="Imagen 1"
                 class="w-[400px] h-[250px] md:h-[400px] object-cover rounded-xl shadow-md mb-4"
             />
-            <h3 class="text-2xl font-semibold mb-2">Creación de instrumentales</h3>
-            <p class="text-gray-600 max-w-md">Utiliza la función de mesa de trabajo crear nuevos proyectos.</p>
+            <h3 class="text-2xl font-semibold mb-2 dark:text-neutral-100">Creación de instrumentales</h3>
+            <p class="text-gray-600 max-w-md dark:text-gray-300">Utiliza la función de mesa de trabajo crear nuevos proyectos.</p>
             </div>
 
             <!-- Columna 2 (Derecha) -->
@@ -28,8 +28,8 @@
                 alt="Imagen 2"
                 class="w-[400px] h-[250px] md:h-[400px] object-cover rounded-xl shadow-md mb-4"
             />
-            <h3 class="text-2xl font-semibold mb-2">Compartir y explorar</h3>
-            <p class="text-gray-600 max-w-md">Comparte con los usuarios tus proyectos y descubre ideas.</p>
+            <h3 class="text-2xl font-semibold mb-2 dark:text-neutral-100">Compartir y explorar</h3>
+            <p class="text-gray-600 max-w-md dark:text-gray-300">Comparte con los usuarios tus proyectos y descubre ideas.</p>
             </div>
         </div>
     </section>
@@ -38,21 +38,21 @@
         <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
             <!-- Columna de texto -->
             <div class="flex-1">
-            <h2 class="text-3xl font-bold mb-6">Qué encontrarás aquí.</h2>
+            <h2 class="text-3xl font-bold mb-6 dark:text-neutral-100">Qué encontrarás aquí.</h2>
 
             <div class="mb-6">
-                <h4 class="text-lg font-semibold">Librería de sonidos</h4>
-                <p class="text-gray-500">Aprovecha nuestra gran librería de sonidos para desatar tu creatividad.</p>
+                <h4 class="text-lg font-semibold dark:text-neutral-100">Librería de sonidos</h4>
+                <p class="text-gray-500 dark:text-gray-300">Aprovecha nuestra gran librería de sonidos para desatar tu creatividad.</p>
             </div>
 
             <div class="mb-6">
-                <h4 class="text-lg font-semibold">Mesa de trabajo</h4>
-                <p class="text-gray-500">En la mesa de trabajo podrás aprovechar todas las funcionalidades de creación de instrumentales.</p>
+                <h4 class="text-lg font-semibold dark:text-neutral-100">Mesa de trabajo</h4>
+                <p class="text-gray-500 dark:text-gray-300">En la mesa de trabajo podrás aprovechar todas las funcionalidades de creación de instrumentales.</p>
             </div>
 
             <div>
-                <h4 class="text-lg font-semibold">Personalización de los sistemas</h4>
-                <p class="text-gray-500">Realiza todos los procesos de la instrumental como tú quieras. Sin restricciones.</p>
+                <h4 class="text-lg font-semibold dark:text-neutral-100">Personalización de los sistemas</h4>
+                <p class="text-gray-500 dark:text-gray-300">Realiza todos los procesos de la instrumental como tú quieras. Sin restricciones.</p>
             </div>
             </div>
 
@@ -67,15 +67,15 @@
         </div>
     </section>
 
-    <h1 class="text-5xl inter-font font-bold text-stone-950 mt-[150px] mb-8" id="explorar">Explorar Proyectos</h1>
+    <h1 class="text-5xl inter-font font-bold text-stone-950 mt-[150px] mb-8 dark:text-neutral-100" id="explorar">Explorar Proyectos</h1>
     @defer (on idle) {
         <div *ngIf="publicInstrumentals.length > 0; else noDataPublic" class="flex flex-wrap justify-center gap-6 px-4">
-            <div *ngFor="let inst of publicInstrumentals" class="bg-white shadow-md rounded-xl p-4 flex gap-1 h-48 w-72 sm:w-80 md:w-96 mx-auto">
+            <div *ngFor="let inst of publicInstrumentals" class="bg-white shadow-md rounded-xl p-4 flex gap-1 h-48 w-72 sm:w-80 md:w-96 mx-auto dark:bg-stone-800">
             <img [src]="environment.apiUrl + '/uploads/' + inst.coverUrl" alt="Portada" class="w-32 h-32 sm:w-40 sm:h-40 rounded-xl object-cover border" />
 
             <div class="ml-3 flex flex-col min-w-0 justify-center">
-                <h3 class="text-xl sm:text-2xl font-medium truncate">{{ inst.instName }}</h3>
-                <p class="text-sm text-gray-500 mt-1">BPM: {{ inst.bpm }}</p>
+                <h3 class="text-xl sm:text-2xl font-medium truncate dark:text-neutral-100">{{ inst.instName }}</h3>
+                <p class="text-sm text-gray-500 mt-1 dark:text-gray-300">BPM: {{ inst.bpm }}</p>
             </div>
 
             <div class="flex flex-col items-center justify-around h-full ml-auto">
@@ -91,8 +91,8 @@
                 </svg>
                 </button>
 
-                <button (click)="goToPublicView(inst.id)" class="w-12 h-12 p-2 bg-black text-white rounded-full text-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-stone-200">
+                <button (click)="goToPublicView(inst.id)" class="w-12 h-12 p-2 bg-stone-950 dark:bg-neutral-100 rounded-full text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-neutral-100 dark:text-stone-950">
                     <polygon points="5.2 12 5.2 3 13 7.5 20.8 12 13 16.5 5.2 21 5.2 12" fill="currentColor" stroke="currentColor" stroke-width="1.5"/>
                 </svg>
                 </button>

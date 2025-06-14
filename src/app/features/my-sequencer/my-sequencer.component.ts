@@ -30,7 +30,7 @@ export class MySequencerComponent implements OnInit, OnDestroy {
   isPlaying = false;
   instrumentalId!: number;
   instrumental!: Instrumental;
-
+  environment = environment;
   instName: string = '';
   public: boolean = false;
   coverFile: File | null = null;

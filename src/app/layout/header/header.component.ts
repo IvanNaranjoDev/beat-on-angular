@@ -16,6 +16,7 @@ export class HeaderComponent {
   isLoggedIn = false;
   menuIcon:String = "☰"
   isMenuOpen = false;
+  isDarkMode: boolean = false;
 
   private subscription: Subscription | null = null;
   constructor(private authService: AuthService) {}
@@ -28,6 +29,12 @@ export class HeaderComponent {
     this.subscription = this.authService.getRole().subscribe(role => {
       this.role = role;
     });
+
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const dark = localStorage.getItem('darkMode') === 'true';
+      this.isDarkMode = dark;
+      document.body.classList.toggle('dark', this.isDarkMode);
+    }
   }
 
   logout() {
@@ -53,10 +60,9 @@ export class HeaderComponent {
     return this.role?.includes('ROLE_USER') || false;
   }
 
-  isDarkMode=false;
-  darkMode() : void {
+  darkmode(): void {
     this.isDarkMode = !this.isDarkMode;
-    document.body.classList.toggle("dark", this.isDarkMode);
+    document.body.classList.toggle('dark', this.isDarkMode);
   }
 
   

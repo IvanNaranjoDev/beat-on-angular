@@ -1,13 +1,13 @@
-<h1 class="p-4 text-5xl md:text-[64px] font-semibold">Enviar Email</h1>
+<h1 class="p-4 text-5xl md:text-[64px] font-semibold dark:text-neutral-100">Enviar Email</h1>
 
 <form (ngSubmit)="enviarEmail()" class="p-4">
     <!-- Destinatario -->
     <div class="mb-4">
-      <label for="to" class="block text-gray-700 font-medium">Para (Email destinatario)</label>
+      <label for="to" class="block text-gray-700 font-medium dark:text-neutral-100">Para (Email destinatario)</label>
       <select id="to" [(ngModel)]="email.to" name="to" required
-        class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs">
+        class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800">
         <option value="" disabled>Selecciona un destinatario</option>
-        <option *ngFor="let user of usuarios" [value]="user.email">
+        <option *ngFor="let user of usuarios" [value]="user.email" class="dark:text-stone-950">
           {{ user.email }}
         </option>
       </select>
@@ -15,11 +15,11 @@
 
     <!-- Subject -->
     <div class="mb-4">
-      <label for="subject" class="block text-gray-700 font-medium">Asunto</label>
+      <label for="subject" class="block text-gray-700 font-medium dark:text-neutral-100">Asunto</label>
       <select id="subject" [(ngModel)]="email.subject" name="subject" required
-        class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs">
+        class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800">
         <option value="" disabled>Selecciona un asunto</option>
-        <option *ngFor="let opcion of subjects" [value]="opcion">
+        <option *ngFor="let opcion of subjects" [value]="opcion" class="dark:text-stone-950">
           {{ opcion }}
         </option>
       </select>
@@ -27,10 +27,10 @@
 
     <!-- Texto -->
     <div class="mb-4">
-      <label for="text" class="block text-gray-700 font-medium">Texto</label>
+      <label for="text" class="block text-gray-700 font-medium dark:text-neutral-100">Texto</label>
       <input type="text" id="text" [(ngModel)]="email.text" name="text" required
         placeholder="Escribe el texto del email"
-        class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs" />
+        class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800" />
     </div>
 
     <!-- Botón -->

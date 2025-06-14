@@ -1,15 +1,15 @@
-<h1 class="p-4 text-5xl md:text-[64px] font-semibold">Crear / Actualizar Usuarios</h1>
+<h1 class="p-4 text-5xl md:text-[64px] font-semibold font-semibold dark:text-neutral-100">Crear / Actualizar Usuarios</h1>
 
 <form (ngSubmit)="guardarUsuario()" class="p-4 max-w-xl">
   <!-- Username -->
   <div class="mb-4 flex flex-col">
-    <label for="username" class="text-base font-medium mb-1">Nombre de usuario <span class="text-red-600">*</span></label>
+    <label for="username" class="text-base font-medium mb-1 dark:text-neutral-100">Nombre de usuario <span class="text-red-600">*</span></label>
     <input
       type="text"
       id="username"
       [(ngModel)]="usuario.username"
       name="username"
-      class="border-stone-200 px-2 py-1 w-[250px] rounded-xs"
+      class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800"
       placeholder="Introduce el nombre de usuario"
       required
     />
@@ -17,13 +17,13 @@
 
   <!-- Email -->
   <div class="mb-4 flex flex-col">
-    <label for="email" class="text-base font-medium mb-1">Email <span class="text-red-600">*</span></label>
+    <label for="email" class="text-base font-medium mb-1 dark:text-neutral-100">Email <span class="text-red-600">*</span></label>
     <input
       type="email"
       id="email"
       [(ngModel)]="usuario.email"
       name="email"
-      class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs"
+      class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800"
       placeholder="correo@ejemplo.com"
       required
     />
@@ -31,13 +31,13 @@
 
   <!-- Contraseña -->
   <div class="mb-4 flex flex-col" *ngIf="mode === 'create'">
-    <label for="password" class="text-base font-medium mb-1">Contraseña <span class="text-red-600">*</span></label>
+    <label for="password" class="text-base font-medium mb-1 dark:text-neutral-100">Contraseña <span class="text-red-600">*</span></label>
     <input
       type="password"
       id="password"
       [(ngModel)]="usuario.password"
       name="password"
-      class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs"
+      class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800"
       placeholder="Introduce la contraseña"
       required
     />
@@ -45,7 +45,7 @@
 
   <!-- Activado -->
   <div class="mb-6">
-    <label for="enabled" class="block text-base font-medium mb-2">Activado</label>
+    <label for="enabled" class="block text-base font-medium mb-2 dark:text-neutral-100">Activado</label>
     <label class="relative inline-flex items-center cursor-pointer">
         <input
         type="checkbox"
@@ -65,15 +65,15 @@
 
   <!-- Rol -->
   <div class="mb-6 flex flex-col">
-    <label for="roles" class="text-base font-medium mb-1">Rol <span class="text-red-600">*</span></label>
+    <label for="roles" class="text-base font-medium mb-1 dark:text-neutral-100">Rol <span class="text-red-600">*</span></label>
     <select
       id="roles"
       [(ngModel)]="usuario.roles[0].id"
       name="roles"
-      class="border border-stone-200 px-3 py-2 rounded-md"
+      class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800"
       required
     >
-      <option *ngFor="let rol of rolesDisponibles" [value]="rol.id">
+      <option *ngFor="let rol of rolesDisponibles" [value]="rol.id" class="dark:text-stone-950">
         {{ rol.name }}
       </option>
     </select>

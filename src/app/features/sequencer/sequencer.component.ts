@@ -25,7 +25,7 @@ export class SequencerComponent implements OnInit, OnDestroy {
   currentStep = 0;
   interval: any;
   isPlaying = false;
-
+  environment = environment;
   instName: string = '';
   isPublic: boolean = false;
   coverFile: File | null = null;

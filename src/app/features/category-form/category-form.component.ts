@@ -15,7 +15,7 @@ export class CategoryFormComponent implements OnInit {
   categoria: Category = {
     name: '',
     color: '',
-    icon_url: ''
+    iconUrl: ''
   };
   selectedFile: File | null = null;
   mode: string = 'create';
@@ -49,7 +49,7 @@ export class CategoryFormComponent implements OnInit {
       this.categoria = {
         name: data.name,
         color: data.color,
-        icon_url: data.icon_url 
+        iconUrl: data.iconUrl 
         };
       });
     }

@@ -32,6 +32,24 @@ export class HomeComponent implements OnInit {
     this.instrumentalService.fetchPublicInstrumentals().subscribe((data) => {
       this.publicInstrumentals = data.filter((inst: Instrumental) => inst.public);
     });
+
+    this.authService.isLoggedIn().subscribe(isLogged => {
+      if (isLogged) {
+        this.authService.getRole().subscribe(roles => {
+          if (roles?.includes('ROLE_USER')) {
+            this.likeService.fetchLikes().subscribe(likes => {
+              this.likes = likes;
+              this.favorites = this.publicInstrumentals.filter(inst =>
+                this.likes.some(like => like.instrumentalId === inst.id)
+              );
+            });
+          } else {
+            this.likes = [];
+            this.favorites = [];
+          }
+        });
+      }
+    });
   }
 
   async addToFavorites(instId: number): Promise<void> {

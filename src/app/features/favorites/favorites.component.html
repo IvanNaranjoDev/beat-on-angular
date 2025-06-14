@@ -1,14 +1,15 @@
+<h1 class="p-4 text-3xl md:text-[64px] font-semibold ml-3 dark:text-neutral-100">Favoritos</h1>
+
 <div *ngIf="favorites.length > 0; else noFavorites" class="flex flex-wrap justify-center gap-6 px-4">
-  <div *ngFor="let inst of favorites" 
-       class="bg-white shadow-md rounded-xl p-4 flex gap-1 h-48 w-72 sm:w-80 md:w-96 mx-auto">
+  <div *ngFor="let inst of favorites" class="bg-white shadow-md rounded-xl p-4 flex gap-1 h-48 w-72 sm:w-80 md:w-96 mx-auto dark:bg-stone-800">
 
     <img [src]="environment.apiUrl + '/uploads/' + inst.coverUrl"
          alt="Portada"
          class="w-32 h-32 sm:w-40 sm:h-40 rounded-xl object-cover border" />
 
     <div class="ml-3 flex flex-col min-w-0 justify-center">
-      <h3 class="text-xl sm:text-2xl font-medium truncate">{{ inst.instName }}</h3>
-      <p class="text-sm text-gray-500 mt-1">BPM: {{ inst.bpm }}</p>
+      <h3 class="text-xl sm:text-2xl font-medium truncate dark:text-neutral-100">{{ inst.instName }}</h3>
+      <p class="text-sm text-gray-500 mt-1 dark:text-gray-300">BPM: {{ inst.bpm }}</p>
     </div>
 
     <div class="flex flex-col items-center justify-around h-full ml-auto">
@@ -20,8 +21,8 @@
       </button>
 
       <!-- Botón para ir al secuenciador -->
-      <button (click)="goToPublicView(inst.id)" class="w-12 h-12 p-2 bg-black text-white rounded-full text-sm">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-stone-200">
+      <button (click)="goToPublicView(inst.id)" class="w-12 h-12 p-2 bg-stone-950 dark:bg-neutral-100 rounded-full text-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-neutral-100 dark:text-stone-950">
           <polygon points="5.2 12 5.2 3 13 7.5 20.8 12 13 16.5 5.2 21 5.2 12"
                    fill="currentColor" stroke="currentColor" stroke-width="1.5"/>
         </svg>

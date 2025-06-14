@@ -31,7 +31,7 @@ export class PublicSequencerComponent implements OnInit, OnDestroy {
   isPlaying = false;
   interval: any;
   audioContext = new AudioContext();
-
+  environment = environment;
   constructor(
     private categoryService: CategoryService,
     private soundService: SoundService,

@@ -1,4 +1,4 @@
-<h1 class="p-4 text-5xl md:text-[64px] font-semibold">Gestionar usuarios</h1>
+<h1 class="p-4 text-5xl md:text-[64px] font-semibold dark:text-neutral-100">Gestionar usuarios</h1>
 
 <button (click)="crearUsuario()"
   class="mx-5 w-20 border-2 border-emerald-500 text-emerald-500 py-1 rounded hover:bg-emerald-500 hover:text-white">
@@ -7,8 +7,8 @@
 
 <!-- Vista de escritorio -->
 <div class="overflow-x-auto p-4 hidden md:block">
-  <table class="w-full text-center rounded-lg overflow-hidden table-auto">
-    <thead class="bg-[#1a1a1a] text-white">
+  <table class="w-full text-center rounded-lg overflow-hidden table-auto dark:bg-zinc-900 bg-stone-950">
+    <thead class="text-neutral-100">
       <tr>
         <th class="py-3 px-6">Username</th>
         <th class="py-3 px-6">Email</th>
@@ -17,9 +17,9 @@
       </tr>
     </thead>
     <tbody class="bg-gray-200">
-      <tr *ngFor="let user of users" class="border-b border-black">
-        <td class="py-4 px-6">{{ user.username }}</td>
-        <td class="py-4 px-6">{{ user.email }}</td>
+      <tr *ngFor="let user of users" class="border-b border-black dark:bg-zinc-800">
+        <td class="py-4 px-6 font-semibold dark:text-neutral-100">{{ user.username }}</td>
+        <td class="py-4 px-6 font-semibold dark:text-neutral-100">{{ user.email }}</td>
         <td class="py-4 px-6">
           <div class="flex justify-center">
             <div class="w-6 h-6 rounded" [class.bg-green-500]="user.enabled"
@@ -48,24 +48,24 @@
   <div *ngFor="let user of users" class="border rounded-md overflow-hidden">
     <table class="w-full table-fixed">
       <tbody>
-        <tr class="bg-stone-950 text-white">
+        <tr class="bg-stone-950 text-neutral-100 dark:bg-zinc-900">
           <th class="text-left py-2 px-4">Username</th>
-          <td class="py-2 px-4 bg-gray-200 text-black">{{ user.username }}</td>
+          <td class="py-2 px-4 bg-gray-200 text-black dark:bg-zinc-800 dark:text-neutral-100 font-semibold">{{ user.username }}</td>
         </tr>
-        <tr class="bg-stone-950 text-white">
+        <tr class="bg-stone-950 text-neutral-100 dark:bg-zinc-900">
           <th class="text-left py-2 px-4">Email</th>
-          <td class="py-2 px-4 bg-gray-200 text-black">{{ user.email }}</td>
+          <td class="py-2 px-4 bg-gray-200 text-black dark:bg-zinc-800 dark:text-neutral-100 font-semibold">{{ user.email }}</td>
         </tr>
-        <tr class="bg-stone-950 text-white">
+        <tr class="bg-stone-950 text-neutral-100 dark:bg-zinc-900">
           <th class="text-left py-2 px-4">Activado</th>
-          <td class="py-2 px-4 bg-gray-200">
+          <td class="py-2 px-4 bg-gray-200 dark:bg-zinc-800 dark:text-neutral-100 font-semibold">
             <div class="w-6 h-6 rounded" [class.bg-green-500]="user.enabled"
               [class.bg-red-500]="!user.enabled"></div>
           </td>
         </tr>
-        <tr class="bg-stone-950 text-white">
+        <tr class="bg-stone-950 text-neutral-100 dark:bg-zinc-900">
           <th class="text-left py-2 px-4">Acciones</th>
-          <td class="py-2 px-4 bg-gray-200">
+          <td class="py-2 px-4 bg-gray-200 dark:bg-zinc-800 dark:text-neutral-100 font-semibold">
             <div class="flex justify-start gap-2">
               <button (click)="editarUsuario(user.id)"
                 class="border-2 border-blue-500 text-blue-500 px-3 py-1 rounded hover:bg-blue-500 hover:text-white">
