@@ -36,6 +36,14 @@ export class EmailFormComponent implements OnInit {
 
   enviarEmail() {
     this.emailService.postMail(this.email).subscribe({
+      next: (response) => {
+        console.log('Correo enviado correctamente', response);
+        alert('Correo enviado con éxito');
+      },
+      error: (error) => {
+        console.error('Error al enviar el correo', error);
+        alert('Error al enviar el correo. Verifica los datos o contacta al administrador.');
+      }
     });
   }
 }
