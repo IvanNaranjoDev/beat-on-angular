@@ -30,10 +30,10 @@ export class RegisterComponent {
     
     this.auth.register(userData).subscribe({
       next: () => {
-        this.router.navigate(['/login']); // o a donde quieras redirigir
+        this.router.navigate(['/login']);
       },
       error: (err) => {
-        this.error = err.error?.message || 'Error al registrarse';
+        this.error = err.error?.message || 'Error al registrarse, datos vacíos o incorrectos';
       }
     });
   }

@@ -1,5 +1,5 @@
 <div class="p-5 w-[90%] h-full mx-auto flex flex-col">
-  <form (submit)="saveInstrumental()" class="rounded-lg space-y-6 mt-5">
+  <form #form="ngForm" (submit)="saveInstrumental()" class="rounded-lg space-y-6 mt-5">
     <div class="flex flex-row justify-between items-start border-b-2 border-gray-200 pb-4">
       <div class="flex flex-row border-b-2 border-gray-400 focus-within:border-stone-600 w-full max-w-2xl">
         <input id="instName" [(ngModel)]="instName" name="instName" type="text"
@@ -98,8 +98,8 @@
     </div>
 
     <div class="flex justify-end gap-4 mt-8">
-      <button type="submit" 
-              class="px-8 py-3 border border-emerald-500 text-emerald-500 py-1 rounded hover:bg-emerald-500 hover:text-white flex items-center gap-2">
+      <button type="submit" [disabled]="!form.valid"
+              class="px-8 py-3 border border-emerald-500 text-emerald-500 py-1 rounded hover:bg-emerald-500 hover:text-white flex items-center gap-2 dark:disabled:bg-neutral-700 dark:disabled:text-neutral-400 dark:disabled:border-neutral-600 disabled:bg-gray-200 disabled:text-gray-400 disabled:border-gray-300 disabled:cursor-not-allowed">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6 fill-current">
           <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
         </svg>

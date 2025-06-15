@@ -1,6 +1,6 @@
 <h1 class="p-4 text-5xl md:text-[64px] font-semibold dark:text-neutral-100">Crear / Actualizar Categorías</h1>
     
-<form (ngSubmit)="guardarCategoria()" class="p-4">
+<form #form="ngForm" (ngSubmit)="guardarCategoria()" class="p-4">
     <div class="mb-4 flex flex-col">
         <label for="name" class="text-base font-medium mb-1 dark:text-neutral-100">Nombre de categoría<span class="text-red-600"> *</span></label>
         <input type="text" id="name" [(ngModel)]="categoria.name" name="name"
@@ -38,8 +38,8 @@
         </div>
     </div>
 
-    <button type="submit"
-        class="mx-auto w-full border-3 border-emerald-500 text-emerald-500 py-1 rounded hover:bg-emerald-500 hover:text-white">
+    <button type="submit" [disabled]="!form.valid"
+        class="mx-auto w-full border-3 border-emerald-500 text-emerald-500 py-1 rounded hover:bg-emerald-500 hover:text-white disabled:bg-gray-200 disabled:text-gray-400 disabled:border-gray-300 disabled:cursor-not-allowed dark:disabled:bg-neutral-700 dark:disabled:text-neutral-400 dark:disabled:border-neutral-600">
         Guardar Categoría
     </button>
 </form>
