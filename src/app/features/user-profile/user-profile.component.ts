@@ -25,6 +25,7 @@ export class UserProfileComponent implements OnInit {
     roles: []
   };
 
+  formError: string | null = null;
   avatars: Avatar[] = [];
   deleteMode: boolean = false;
   deletePassword: string = '';
@@ -78,6 +79,13 @@ export class UserProfileComponent implements OnInit {
   }
 
   actualizarPerfil(): void {
+    if (!this.usuario.username?.trim() || !this.usuario.email?.trim()) {
+      this.formError = 'Por favor, completa todos los campos obligatorios.';
+      return;
+    }
+    
+    this.formError = null;
+    
     const avatarId = this.usuario.avatar?.id;
     const avatarObj = avatarId !== undefined && avatarId !== null
       ? { id: avatarId, path: this.usuario.avatar?.path }
@@ -91,7 +99,6 @@ export class UserProfileComponent implements OnInit {
 
     this.userService.updateProfile(datosActualizados).subscribe({
       next: (actualizado) => {
-        // Opcional: actualizar usuario localmente si quieres antes del logout
         this.usuario = {
           ...this.usuario,
           username: actualizado.username || this.usuario.username,
@@ -101,12 +108,12 @@ export class UserProfileComponent implements OnInit {
           enabled: actualizado.enabled ?? this.usuario.enabled
         };
 
-        // Hacer logout para limpiar token y redirigir a login
         this.authService.logout();
         this.router.navigate(['/login']);
       },
       error: err => {
         console.error('Error al actualizar perfil', err);
+        this.formError = 'Ocurrió un error al actualizar el perfil. Inténtalo de nuevo.';
       }
     });
   }

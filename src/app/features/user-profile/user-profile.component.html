@@ -40,6 +40,10 @@
       </button>
     </form>
 
+    <div *ngIf="formError" class="text-red-600 font-medium text-sm mt-2">
+      {{ formError }}
+    </div>
+
     <div class="delete-account mt-4 w-full max-w-xs">
       <button (click)="deleteMode = !deleteMode"
               class="border-2 border-red-500 text-red-500 px-3 py-1 rounded hover:bg-red-500 hover:text-white w-full">

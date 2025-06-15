@@ -1,7 +1,6 @@
 <h1 class="p-4 text-5xl md:text-[64px] font-semibold dark:text-neutral-100">Enviar Email</h1>
 
-<form (ngSubmit)="enviarEmail()" class="p-4">
-    <!-- Destinatario -->
+<form #form="ngForm" (ngSubmit)="enviarEmail()" class="p-4">
     <div class="mb-4">
       <label for="to" class="block text-gray-700 font-medium dark:text-neutral-100">Para (Email destinatario)</label>
       <select id="to" [(ngModel)]="email.to" name="to" required
@@ -13,7 +12,6 @@
       </select>
     </div>
 
-    <!-- Subject -->
     <div class="mb-4">
       <label for="subject" class="block text-gray-700 font-medium dark:text-neutral-100">Asunto</label>
       <select id="subject" [(ngModel)]="email.subject" name="subject" required
@@ -25,7 +23,6 @@
       </select>
     </div>
 
-    <!-- Texto -->
     <div class="mb-4">
       <label for="text" class="block text-gray-700 font-medium dark:text-neutral-100">Texto</label>
       <input type="text" id="text" [(ngModel)]="email.text" name="text" required
@@ -33,10 +30,9 @@
         class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800" />
     </div>
 
-    <!-- Botón -->
     <div class="mt-6">
-      <button type="submit"
-        class="mx-auto w-full border-3 border-emerald-500 text-emerald-500 py-2 rounded hover:bg-emerald-500 hover:text-white transition-colors">
+      <button type="submit" [disabled]="!form.valid"
+        class="mx-auto w-full border-3 border-emerald-500 text-emerald-500 py-2 rounded hover:bg-emerald-500 hover:text-white transition-colors disabled:bg-gray-200 disabled:text-gray-400 disabled:border-gray-300 disabled:cursor-not-allowed dark:disabled:bg-neutral-700 dark:disabled:text-neutral-400 dark:disabled:border-neutral-600">
         Enviar
       </button>
     </div>
