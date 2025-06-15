@@ -1,45 +1,53 @@
-<h1 class="p-4 text-5xl md:text-[64px] font-semibold dark:text-neutral-100">Gestionar sonidos</h1>
+<h1 id="page-title" class="p-4 text-5xl md:text-[64px] font-semibold dark:text-neutral-100">Gestionar sonidos</h1>
 
 <button (click)="crearSonido()"
-  class="mx-5 w-20 border-2 border-emerald-500 text-emerald-500 py-1 rounded hover:bg-emerald-500 hover:text-white">
+  class="mx-5 w-20 border-2 border-emerald-500 text-emerald-500 py-1 rounded hover:bg-emerald-500 hover:text-white"
+  aria-label="Crear nuevo sonido">
   Crear
 </button>
 
-<!-- Vista de escritorio -->
-<div class="overflow-x-auto p-4 hidden md:block">
-  <table class="w-full text-center rounded-lg overflow-hidden table-auto dark:bg-zinc-900 bg-stone-950">
+<!-- Tabla para escritorio -->
+<div class="overflow-x-auto p-4 hidden md:block" role="region" aria-labelledby="table-title">
+  <table class="w-full text-center rounded-lg overflow-hidden table-auto dark:bg-zinc-900 bg-stone-950" aria-describedby="table-description">
+    <caption id="table-title" class="sr-only">Tabla de sonidos</caption>
     <thead class="text-neutral-100">
       <tr>
-        <th class="py-3 px-6">Nombre</th>
-        <th class="py-3 px-6">Duración</th>
-        <th class="py-3 px-6">Imagen</th>
-        <th class="py-3 px-6">Sonido</th>
-        <th class="py-3 px-6">Accesible</th>
-        <th class="py-3 px-6">Acciones</th>
+        <th scope="col" class="py-3 px-6">Nombre</th>
+        <th scope="col" class="py-3 px-6">Duración</th>
+        <th scope="col" class="py-3 px-6">Imagen</th>
+        <th scope="col" class="py-3 px-6">Sonido</th>
+        <th scope="col" class="py-3 px-6">Accesible</th>
+        <th scope="col" class="py-3 px-6">Acciones</th>
       </tr>
     </thead>
     <tbody class="bg-gray-200">
       <tr *ngFor="let sound of sounds" class="border-b border-black dark:bg-zinc-800">
         <td class="py-4 px-6 font-semibold dark:text-neutral-100">{{ sound.name }}</td>
         <td class="py-4 px-6 font-semibold dark:text-neutral-100">{{ sound.duration }}</td>
-        <td class="py-4 px-6 flex justify-center"><img [src]="environment.apiUrl + '/uploads/' + sound.image" alt="Imagen del sonido" class="sound-image"/></td>
+        <td class="py-4 px-6 flex justify-center">
+          <img [src]="environment.apiUrl + '/uploads/' + sound.image" alt="Imagen de {{ sound.name }}" class="sound-image" />
+        </td>
         <td class="py-4 px-6">
-          <audio class="w-[100%]" controls [src]="environment.apiUrl + '/uploads/' + sound.soundPath"></audio>
+          <audio class="w-[100%]" controls [src]="environment.apiUrl + '/uploads/' + sound.soundPath" [attr.aria-label]="'Reproducir ' + sound.name">></audio>
         </td>
         <td class="py-4 px-6">
           <div class="flex justify-center">
-            <div class="w-6 h-6 rounded" [class.bg-green-500]="sound.enabled"
-              [class.bg-red-500]="!sound.enabled"></div>
+            <div class="w-6 h-6 rounded" role="img"
+                 [attr.aria-label]="sound.enabled ? 'Sonido habilitado' : 'Sonido deshabilitado'"
+                 [class.bg-green-500]="sound.enabled"
+                 [class.bg-red-500]="!sound.enabled"></div>
           </div>
         </td>
         <td class="py-4 px-6">
           <div class="flex justify-center gap-2">
             <button (click)="editarSonido(sound.id)"
-              class="border-2 border-blue-500 text-blue-500 px-3 py-1 rounded hover:bg-blue-500 hover:text-white">
+              class="border-2 border-blue-500 text-blue-500 px-3 py-1 rounded hover:bg-blue-500 hover:text-white"
+              [attr.aria-label]="'Editar sonido ' + sound.name">
               Editar
             </button>
             <button (click)="eliminarSonido(sound.id)"
-              class="border-2 border-red-500 text-red-500 px-3 py-1 rounded hover:bg-red-500 hover:text-white">
+              class="border-2 border-red-500 text-red-500 px-3 py-1 rounded hover:bg-red-500 hover:text-white"
+              [attr.aria-label]="'Eliminar sonido ' + sound.name">
               Eliminar
             </button>
           </div>
@@ -49,46 +57,53 @@
   </table>
 </div>
 
-<!-- Vista móvil -->
-<div class="flex flex-col gap-4 md:hidden p-4">
+<!-- Tabla para móviles -->
+<div class="flex flex-col gap-4 md:hidden p-4" role="region" aria-labelledby="mobile-sound-list-title">
+  <h2 id="mobile-sound-list-title" class="sr-only">Lista de sonidos para móviles</h2>
   <div *ngFor="let sound of sounds" class="border rounded-md overflow-hidden">
-    <table class="w-full table-fixed">
+    <table class="w-full table-fixed" [attr.aria-label]="'Detalles de ' + sound.name">
       <tbody>
         <tr class="bg-stone-950 text-neutral-100 dark:bg-zinc-900">
-          <th class="text-left py-2 px-4">Nombre</th>
+          <th class="text-left py-2 px-4" scope="row">Nombre</th>
           <td class="py-2 px-4 bg-gray-200 text-black dark:bg-zinc-800 dark:text-neutral-100 font-semibold">{{ sound.name }}</td>
         </tr>
         <tr class="bg-stone-950 text-neutral-100 dark:bg-zinc-900">
-          <th class="text-left py-2 px-4">Duración</th>
+          <th class="text-left py-2 px-4" scope="row">Duración</th>
           <td class="py-2 px-4 bg-gray-200 text-black dark:bg-zinc-800 dark:text-neutral-100 font-semibold">{{ sound.duration }}</td>
         </tr>
         <tr class="bg-stone-950 text-neutral-100 dark:bg-zinc-900">
-          <th class="text-left py-2 px-4">Imagen</th>
-          <td class="py-2 px-4 bg-gray-200 text-black dark:bg-zinc-800"><img [src]="environment.apiUrl + '/uploads/' + sound.image" alt="Imagen del sonido" class="sound-image"/></td>
-        </tr>
-        <tr class="bg-stone-950 text-neutral-100 dark:bg-zinc-900">
-          <th class="text-left py-2 px-4">Sonido</th>
-          <td class="py-2 px-4 bg-gray-200 dark:bg-zinc-800">
-            <audio controls [src]="environment.apiUrl + '/uploads/' + sound.soundPath"></audio>
+          <th class="text-left py-2 px-4" scope="row">Imagen</th>
+          <td class="py-2 px-4 bg-gray-200 text-black dark:bg-zinc-800">
+            <img [src]="environment.apiUrl + '/uploads/' + sound.image" alt="Imagen de {{ sound.name }}" class="sound-image" />
           </td>
         </tr>
         <tr class="bg-stone-950 text-neutral-100 dark:bg-zinc-900">
-          <th class="text-left py-2 px-4">Accesible</th>
+          <th class="text-left py-2 px-4" scope="row">Sonido</th>
           <td class="py-2 px-4 bg-gray-200 dark:bg-zinc-800">
-            <div class="w-6 h-6 rounded" [class.bg-green-500]="sound.enabled"
+            <audio controls [src]="environment.apiUrl + '/uploads/' + sound.soundPath" [attr.aria-label]="'Reproducir ' + sound.name">></audio>
+          </td>
+        </tr>
+        <tr class="bg-stone-950 text-neutral-100 dark:bg-zinc-900">
+          <th class="text-left py-2 px-4" scope="row">Accesible</th>
+          <td class="py-2 px-4 bg-gray-200 dark:bg-zinc-800">
+            <div class="w-6 h-6 rounded" role="img"
+              [attr.aria-label]="sound.enabled ? 'Sonido habilitado' : 'Sonido deshabilitado'"
+              [class.bg-green-500]="sound.enabled"
               [class.bg-red-500]="!sound.enabled"></div>
           </td>
         </tr>
         <tr class="bg-stone-950 text-neutral-100 dark:bg-zinc-900">
-          <th class="text-left py-2 px-4">Acciones</th>
+          <th class="text-left py-2 px-4" scope="row">Acciones</th>
           <td class="py-2 px-4 bg-gray-200 dark:bg-zinc-800">
             <div class="flex justify-start gap-2">
               <button (click)="editarSonido(sound.id)"
-                class="border-2 border-blue-500 text-blue-500 px-3 py-1 rounded hover:bg-blue-500 hover:text-white">
+                class="border-2 border-blue-500 text-blue-500 px-3 py-1 rounded hover:bg-blue-500 hover:text-white"
+                [attr.aria-label]="'Editar sonido ' + sound.name">
                 Editar
               </button>
               <button (click)="eliminarSonido(sound.id)"
-                class="border-2 border-red-500 text-red-500 px-3 py-1 rounded hover:bg-red-500 hover:text-white">
+                class="border-2 border-red-500 text-red-500 px-3 py-1 rounded hover:bg-red-500 hover:text-white"
+                [attr.aria-label]="'Eliminar sonido ' + sound.name">
                 Eliminar
               </button>
             </div>

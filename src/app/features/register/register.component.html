@@ -1,27 +1,57 @@
-<div class="shadow-xl w-[95%] md:w-[55vw] h-[75vh] mx-auto mt-8 border border-stone-200 dark:border-neutral-800 rounded-lg flex flex-col items-center p-4">
-    <img src="/assets/logo.ico" class="w-[200px] h-[200px]" alt="">
-    <h1 class="text-[40px] font-semibold dark:text-neutral-100">Registro</h1>
+<div class="shadow-xl w-[95%] md:w-[55vw] h-[75vh] mx-auto mt-8 border border-stone-200 dark:border-neutral-800 rounded-lg flex flex-col items-center p-4" role="form" aria-labelledby="form-title">
+  <img src="/assets/logo.ico" class="w-[200px] h-[200px]" alt="Logo de la aplicación">
+  <h1 id="form-title" class="text-[40px] font-semibold dark:text-neutral-100">Registro</h1>
 
-    <form (ngSubmit)="onSubmit()" class=" mt-8 flex flex-col items-left">
-      <div class="mb-5 flex flex-col">
-        <label for="username" class="text-base font-medium mb-1 dark:text-neutral-100">Nombre de usuario<span class="text-red-600"> *</span></label>
-        <input type="text" [(ngModel)]="username" name="username" id="username" class="border border-stone-200 dark:border-neutral-800 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300" placeholder="beat-onUser" required>
-      </div>
+  <form (ngSubmit)="onSubmit()" class="mt-8 flex flex-col items-start w-[250px]" aria-describedby="required-note">
+    <p id="required-note" class="sr-only">Todos los campos marcados con asterisco son obligatorios.</p>
 
-      <div class="mb-5 flex flex-col">
-        <label for="email" class="text-base font-medium mb-1 dark:text-neutral-100">Correo Electrónico<span class="text-red-600"> *</span></label>
-        <input type="text" [(ngModel)]="email" name="email" id="email" class="border border-stone-200 dark:border-neutral-800 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300" placeholder="beat@onmail.com" required>
-      </div>
+    <div class="mb-5 w-full">
+      <label for="username" class="text-base font-medium mb-1 block dark:text-neutral-100">Nombre de usuario<span class="text-red-600"> *</span></label>
+      <input type="text"
+             [(ngModel)]="username"
+             name="username"
+             id="username"
+             class="border border-stone-300 dark:border-neutral-700 px-3 py-2 w-full rounded-md dark:text-gray-200 dark:bg-neutral-900"
+             placeholder="beat-onUser"
+             required
+             aria-required="true"
+             aria-label="Nombre de usuario">
+    </div>
 
-      <div class="flex flex-col">
-        <label for="password" class="text-base font-medium mb-1 dark:text-neutral-100">Contraseña<span class="text-red-600"> *</span></label>
-        <input type="password" [(ngModel)]="password" name="password" id="password" placeholder="••••••••" class="border border-stone-200 dark:border-neutral-800 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300" required>
-      </div>
+    <div class="mb-5 w-full">
+      <label for="email" class="text-base font-medium mb-1 block dark:text-neutral-100">Correo Electrónico<span class="text-red-600"> *</span></label>
+      <input type="email"
+             [(ngModel)]="email"
+             name="email"
+             id="email"
+             class="border border-stone-300 dark:border-neutral-700 px-3 py-2 w-full rounded-md dark:text-gray-200 dark:bg-neutral-900"
+             placeholder="beat@onmail.com"
+             required
+             aria-required="true"
+             aria-label="Correo electrónico">
+    </div>
 
-      <button type="submit" class="bg-stone-950 text-neutral-100 p-2 mt-6 w-[120px] rounded-sm self-center">Crear Cuenta</button>
-    </form>
+    <div class="mb-5 w-full">
+      <label for="password" class="text-base font-medium mb-1 block dark:text-neutral-100">Contraseña<span class="text-red-600"> *</span></label>
+      <input type="password"
+             [(ngModel)]="password"
+             name="password"
+             id="password"
+             class="border border-stone-300 dark:border-neutral-700 px-3 py-2 w-full rounded-md dark:text-gray-200 dark:bg-neutral-900"
+             placeholder="••••••••"
+             required
+             aria-required="true"
+             aria-label="Contraseña">
+    </div>
 
-    <div *ngIf="error" class="text-red-600 mt-2 flex flex-col">
-        {{ error }}
-      </div>
+    <button type="submit"
+            class="bg-stone-950 text-neutral-100 px-4 py-2 mt-4 rounded-md hover:bg-stone-800 transition self-center"
+            aria-label="Crear cuenta">
+      Crear Cuenta
+    </button>
+  </form>
+
+  <div *ngIf="error" class="text-red-600 mt-4 text-sm" role="alert" aria-live="assertive">
+    {{ error }}
+  </div>
 </div>

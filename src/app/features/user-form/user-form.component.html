@@ -2,7 +2,9 @@
 
 <form #form="ngForm" (ngSubmit)="guardarUsuario()" class="p-4 max-w-xl">
   <div class="mb-4 flex flex-col">
-    <label for="username" class="text-base font-medium mb-1 dark:text-neutral-100">Nombre de usuario <span class="text-red-600">*</span></label>
+    <label for="username" class="text-base font-medium mb-1 dark:text-neutral-100">
+      Nombre de usuario <span class="text-red-600">*</span>
+    </label>
     <input
       type="text"
       id="username"
@@ -11,11 +13,14 @@
       class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800"
       placeholder="Introduce el nombre de usuario"
       required
+      aria-label="Nombre de usuario"
     />
   </div>
 
   <div class="mb-4 flex flex-col">
-    <label for="email" class="text-base font-medium mb-1 dark:text-neutral-100">Email <span class="text-red-600">*</span></label>
+    <label for="email" class="text-base font-medium mb-1 dark:text-neutral-100">
+      Email <span class="text-red-600">*</span>
+    </label>
     <input
       type="email"
       id="email"
@@ -24,11 +29,14 @@
       class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800"
       placeholder="correo@ejemplo.com"
       required
+      aria-label="Correo electrónico"
     />
   </div>
 
   <div class="mb-4 flex flex-col" *ngIf="mode === 'create'">
-    <label for="password" class="text-base font-medium mb-1 dark:text-neutral-100">Contraseña <span class="text-red-600">*</span></label>
+    <label for="password" class="text-base font-medium mb-1 dark:text-neutral-100">
+      Contraseña <span class="text-red-600">*</span>
+    </label>
     <input
       type="password"
       id="password"
@@ -37,36 +45,43 @@
       class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800"
       placeholder="Introduce la contraseña"
       required
+      aria-label="Contraseña"
     />
   </div>
 
   <div class="mb-6">
-    <label for="enabled" class="block text-base font-medium mb-2 dark:text-neutral-100">Activado</label>
+    <label for="enabled" class="block text-base font-medium mb-2 dark:text-neutral-100">
+      Activado
+    </label>
     <label class="relative inline-flex items-center cursor-pointer">
-        <input
+      <input
         type="checkbox"
         id="enabled"
         name="enabled"
         [(ngModel)]="usuario.enabled"
         class="sr-only peer"
-        />
-        <div
+        aria-label="Estado de activación del usuario"
+      />
+      <div
         class="w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500 rounded-full peer dark:bg-gray-400 peer-checked:bg-emerald-500 transition-all duration-300"
-        ></div>
-        <div
+      ></div>
+      <div
         class="absolute left-0.5 top-0.5 w-5 h-5 bg-white border border-gray-300 rounded-full transition-transform duration-300 transform peer-checked:translate-x-5"
-        ></div>
+      ></div>
     </label>
   </div>
 
   <div class="mb-6 flex flex-col">
-    <label for="roles" class="text-base font-medium mb-1 dark:text-neutral-100">Rol <span class="text-red-600">*</span></label>
+    <label for="roles" class="text-base font-medium mb-1 dark:text-neutral-100">
+      Rol <span class="text-red-600">*</span>
+    </label>
     <select
       id="roles"
       [(ngModel)]="usuario.roles[0].id"
       name="roles"
       class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800"
       required
+      aria-label="Seleccionar rol"
     >
       <option *ngFor="let rol of rolesDisponibles" [value]="rol.id" class="dark:text-stone-950">
         {{ rol.name }}
@@ -74,10 +89,11 @@
     </select>
   </div>
 
-  <!-- Botón -->
   <button
-    type="submit" [disabled]="!form.valid"
+    type="submit"
+    [disabled]="!form.valid"
     class="mx-auto w-full border-3 border-emerald-500 text-emerald-500 py-2 rounded hover:bg-emerald-500 hover:text-white disabled:bg-gray-200 disabled:text-gray-400 disabled:border-gray-300 disabled:cursor-not-allowed dark:disabled:bg-neutral-700 dark:disabled:text-neutral-400 dark:disabled:border-neutral-600"
+    aria-label="Guardar usuario"
   >
     {{ mode === 'create' ? 'Crear Usuario' : 'Actualizar Usuario' }}
   </button>

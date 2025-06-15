@@ -1,39 +1,97 @@
-<h1 class="p-4 text-5xl md:text-[64px] font-semibold dark:text-neutral-100">Enviar Email</h1>
+<h1 class="p-4 text-5xl md:text-[64px] font-semibold dark:text-neutral-100" id="email-form-title">
+  Enviar Email
+</h1>
 
-<form #form="ngForm" (ngSubmit)="enviarEmail()" class="p-4">
-    <div class="mb-4">
-      <label for="to" class="block text-gray-700 font-medium dark:text-neutral-100">Para (Email destinatario)</label>
-      <select id="to" [(ngModel)]="email.to" name="to" required
-        class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800">
-        <option value="" disabled>Selecciona un destinatario</option>
-        <option *ngFor="let user of usuarios" [value]="user.email" class="dark:text-stone-950">
-          {{ user.email }}
-        </option>
-      </select>
-    </div>
+<form 
+  #form="ngForm" 
+  (ngSubmit)="enviarEmail()" 
+  class="p-4"
+  role="form" 
+  aria-labelledby="email-form-title"
+>
 
-    <div class="mb-4">
-      <label for="subject" class="block text-gray-700 font-medium dark:text-neutral-100">Asunto</label>
-      <select id="subject" [(ngModel)]="email.subject" name="subject" required
-        class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800">
-        <option value="" disabled>Selecciona un asunto</option>
-        <option *ngFor="let opcion of subjects" [value]="opcion" class="dark:text-stone-950">
-          {{ opcion }}
-        </option>
-      </select>
-    </div>
+  <div class="mb-4">
+    <label for="to" class="block text-gray-700 font-medium dark:text-neutral-100">
+      Para (Email destinatario)<span class="text-red-600"> *</span>
+    </label>
+    <select 
+      id="to" 
+      [(ngModel)]="email.to" 
+      name="to" 
+      required 
+      aria-required="true"
+      aria-describedby="to-help"
+      class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800"
+    >
+      <option value="" disabled>Selecciona un destinatario</option>
+      <option 
+        *ngFor="let user of usuarios" 
+        [value]="user.email" 
+        class="dark:text-stone-950"
+      >
+        {{ user.email }}
+      </option>
+    </select>
+    <small id="to-help" class="text-xs text-gray-500 dark:text-neutral-400">
+      Selecciona el email del destinatario al que deseas enviar el mensaje.
+    </small>
+  </div>
 
-    <div class="mb-4">
-      <label for="text" class="block text-gray-700 font-medium dark:text-neutral-100">Texto</label>
-      <input type="text" id="text" [(ngModel)]="email.text" name="text" required
-        placeholder="Escribe el texto del email"
-        class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800" />
-    </div>
+  <div class="mb-4">
+    <label for="subject" class="block text-gray-700 font-medium dark:text-neutral-100">
+      Asunto<span class="text-red-600"> *</span>
+    </label>
+    <select 
+      id="subject" 
+      [(ngModel)]="email.subject" 
+      name="subject" 
+      required 
+      aria-required="true"
+      aria-describedby="subject-help"
+      class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800"
+    >
+      <option value="" disabled>Selecciona un asunto</option>
+      <option 
+        *ngFor="let opcion of subjects" 
+        [value]="opcion" 
+        class="dark:text-stone-950"
+      >
+        {{ opcion }}
+      </option>
+    </select>
+    <small id="subject-help" class="text-xs text-gray-500 dark:text-neutral-400">
+      Selecciona el motivo o tema del correo.
+    </small>
+  </div>
 
-    <div class="mt-6">
-      <button type="submit" [disabled]="!form.valid"
-        class="mx-auto w-full border-3 border-emerald-500 text-emerald-500 py-2 rounded hover:bg-emerald-500 hover:text-white transition-colors disabled:bg-gray-200 disabled:text-gray-400 disabled:border-gray-300 disabled:cursor-not-allowed dark:disabled:bg-neutral-700 dark:disabled:text-neutral-400 dark:disabled:border-neutral-600">
-        Enviar
-      </button>
-    </div>
+  <div class="mb-4">
+    <label for="text" class="block text-gray-700 font-medium dark:text-neutral-100">
+      Texto<span class="text-red-600"> *</span>
+    </label>
+    <input 
+      type="text" 
+      id="text" 
+      [(ngModel)]="email.text" 
+      name="text" 
+      required 
+      placeholder="Escribe el texto del email"
+      aria-required="true"
+      aria-describedby="text-help"
+      class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800" 
+    />
+    <small id="text-help" class="text-xs text-gray-500 dark:text-neutral-400">
+      Escribe el contenido que se enviará en el cuerpo del correo electrónico.
+    </small>
+  </div>
+
+  <div class="mt-6">
+    <button 
+      type="submit" 
+      [disabled]="!form.valid"
+      class="mx-auto w-full border-3 border-emerald-500 text-emerald-500 py-2 rounded hover:bg-emerald-500 hover:text-white transition-colors disabled:bg-gray-200 disabled:text-gray-400 disabled:border-gray-300 disabled:cursor-not-allowed dark:disabled:bg-neutral-700 dark:disabled:text-neutral-400 dark:disabled:border-neutral-600"
+      aria-label="Enviar correo electrónico"
+    >
+      Enviar
+    </button>
+  </div>
 </form>

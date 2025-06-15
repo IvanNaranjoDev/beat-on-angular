@@ -1,35 +1,46 @@
 <h1 class="p-4 text-3xl md:text-[64px] font-semibold ml-3 dark:text-neutral-100">Mis instrumentales</h1>
 
 <div *ngIf="MyInstrumentals.length > 0; else noData" class="flex flex-wrap justify-center gap-6 px-4">
-  <div *ngFor="let inst of MyInstrumentals" class="bg-white shadow-md rounded-xl p-4 flex gap-1 h-48 w-112 mx-auto dark:bg-stone-800">
+  <div *ngFor="let inst of MyInstrumentals"
+       class="bg-white shadow-md rounded-2xl p-4 flex flex-col sm:flex-row gap-4 w-full max-w-2xl mx-auto dark:bg-stone-800 transition hover:shadow-lg">
+
     <img [src]="environment.apiUrl + '/uploads/' + inst.coverUrl"
          alt="Portada"
-         class="w-40 h-40 rounded-xl object-cover border" />
+         class="w-full sm:w-40 h-40 object-cover rounded-xl border" />
 
-    <div class="ml-3 flex flex-col min-w-0">
-      <h3 class="text-2xl font-medium truncate dark:text-neutral-100">{{ inst.instName }}</h3>
-      <p class="text-sm text-gray-500 mt-1 dark:text-gray-300">BPM: {{ inst.bpm }}</p>
-    </div>
+    <div class="flex flex-col justify-between flex-grow min-w-0">
+      <div>
+        <h3 class="text-2xl font-semibold truncate dark:text-neutral-100">{{ inst.instName }}</h3>
+        <p class="text-sm text-gray-500 mt-1 dark:text-gray-300">BPM: {{ inst.bpm }}</p>
+      </div>
 
-    <div class="flex flex-col items-center justify-around h-full ml-auto">
-      <button (click)="togglePublic(inst)" class="w-6 h-6">
-        <svg *ngIf="!inst.public" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-stone-950 dark:text-neutral-100">
-          <rect x="3.5" y="10.5" width="17" height="11" fill="none" stroke="currentColor" stroke-width="1.5"/>
-          <line x1="12" y1="14.5" x2="12" y2="17" fill="none" stroke="currentColor" stroke-width="1.5"/>
-          <path d="M18,10.5V8A6,6,0,0,0,6,8v2.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
-        </svg>
-        <svg *ngIf="inst.public" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-zinc-400">
-          <rect x="3.5" y="11" width="17" height="11" fill="none" stroke="currentColor" stroke-width="1.5"/>
-          <line x1="12" y1="15" x2="12" y2="17.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
-          <path d="M18,11V7.5a6,6,0,0,0-12,0" fill="none" stroke="currentColor" stroke-width="1.5"/>
-        </svg>
-      </button>
+      <div class="flex gap-4 mt-4 sm:mt-0 sm:flex-col sm:items-end">
+        <!-- Botón de visibilidad pública -->
+        <button (click)="togglePublic(inst)"
+                class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-stone-700 transition">
+          <svg *ngIf="!inst.public" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+               class="w-6 h-6 text-stone-950 dark:text-neutral-100">
+            <rect x="3.5" y="10.5" width="17" height="11" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="12" y1="14.5" x2="12" y2="17" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M18,10.5V8A6,6,0,0,0,6,8v2.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+          <svg *ngIf="inst.public" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+               class="w-6 h-6 text-zinc-400">
+            <rect x="3.5" y="11" width="17" height="11" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="12" y1="15" x2="12" y2="17.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M18,11V7.5a6,6,0,0,0-12,0" fill="none" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </button>
 
-      <button (click)="goToSequencer(inst.id)" class="w-12 h-12 p-2 bg-stone-950 dark:bg-neutral-100 rounded-full text-sm">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-neutral-100 dark:text-stone-950">
-          <polygon points="5.2 12 5.2 3 13 7.5 20.8 12 13 16.5 5.2 21 5.2 12" fill="currentColor" stroke="currentColor" stroke-width="1.5"/>
-        </svg>
-      </button>
+        <!-- Botón para editar en el secuenciador -->
+        <button (click)="goToSequencer(inst.id)"
+                class="w-10 h-10 flex items-center justify-center rounded-full bg-stone-950 dark:bg-neutral-100 hover:opacity-90 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+               class="w-5 h-5 text-neutral-100 dark:text-stone-950">
+            <polygon points="5.2 12 5.2 3 13 7.5 20.8 12 13 16.5 5.2 21 5.2 12" fill="currentColor" stroke="currentColor" stroke-width="1.5"/>
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 </div>

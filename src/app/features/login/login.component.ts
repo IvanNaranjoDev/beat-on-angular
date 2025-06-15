@@ -15,6 +15,7 @@ export class LoginComponent {
   username = '';
   password = '';
   error: string | null = null;
+  showPassword: boolean = false;
 
   constructor(private auth: AuthService, private router : Router) {}
 

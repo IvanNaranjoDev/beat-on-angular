@@ -1,45 +1,100 @@
-<h1 class="p-4 text-5xl md:text-[64px] font-semibold dark:text-neutral-100">Crear / Actualizar Categorías</h1>
-    
-<form #form="ngForm" (ngSubmit)="guardarCategoria()" class="p-4">
-    <div class="mb-4 flex flex-col">
-        <label for="name" class="text-base font-medium mb-1 dark:text-neutral-100">Nombre de categoría<span class="text-red-600"> *</span></label>
-        <input type="text" id="name" [(ngModel)]="categoria.name" name="name"
-            class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800"
-            placeholder="Nombre de la categoría" required>
+<h1 class="p-4 text-5xl md:text-[64px] font-semibold dark:text-neutral-100" id="form-title">
+  Crear / Actualizar Categorías
+</h1>
+
+<form 
+  #form="ngForm" 
+  (ngSubmit)="guardarCategoria()" 
+  class="p-4" 
+  aria-labelledby="form-title"
+  role="form"
+>
+  <div class="mb-4 flex flex-col">
+    <label for="name" class="text-base font-medium mb-1 dark:text-neutral-100">
+      Nombre de categoría<span class="text-red-600"> *</span>
+    </label>
+    <input 
+      type="text" 
+      id="name" 
+      name="name"
+      [(ngModel)]="categoria.name"
+      class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800"
+      placeholder="Nombre de la categoría" 
+      required 
+      aria-required="true"
+      aria-describedby="name-help"
+    >
+    <small id="name-help" class="text-xs text-gray-500 dark:text-neutral-400">
+      Introduce el nombre que identifique a la categoría.
+    </small>
+  </div>
+
+  <div class="mb-4 flex flex-col">
+    <label for="color" class="text-base font-medium mb-1 dark:text-neutral-100">
+      Color<span class="text-red-600"> *</span>
+    </label>
+    <input 
+      type="text" 
+      id="color" 
+      name="color"
+      [(ngModel)]="categoria.color"
+      class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800"
+      placeholder="#FFFFFF" 
+      pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$" 
+      title="Introduce un color hexadecimal válido." 
+      required 
+      aria-required="true"
+      aria-describedby="color-help"
+    >
+    <small id="color-help" class="text-xs text-gray-500 dark:text-neutral-400">
+      Usa un color en formato hexadecimal, por ejemplo #FF5733.
+    </small>
+  </div>
+
+  <div class="mb-6">
+    <label for="icon_url" class="block text-gray-700 font-medium mb-2 dark:text-neutral-100">
+      Icono (PNG)<span class="text-red-600"> *</span>
+    </label>
+
+    <div class="relative group">
+      <input 
+        type="file" 
+        id="icon_url" 
+        (change)="onFileSelected($event)" 
+        accept=".png" 
+        required 
+        class="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer"
+        aria-describedby="icon-help"
+        aria-required="true"
+      />
+
+      <div 
+        class="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-300 rounded-lg p-4 bg-gray-50 text-center dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:border-zinc-600 flex" 
+        role="group" 
+        aria-labelledby="icon-help"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-zinc-400 w-8 h-8" aria-hidden="true">
+          <rect x="2.5" y="5" width="19" height="14" fill="none" stroke="currentColor"/>
+          <polyline points="17.5 19 7.5 9 2.5 14" fill="none" stroke="currentColor"/>
+          <polyline points="21.5 17 16.5 12 13.5 15" fill="none" stroke="currentColor"/>
+        </svg>
+
+        <p class="text-gray-700 dark:text-zinc-300 font-medium text-sm">Haz clic o arrastra un archivo PNG</p>
+        <p id="icon-help" class="text-gray-500 text-xs">Tamaño recomendado: 100x100 px</p>
+
+        <span *ngIf="selectedFile" class="text-sm text-blue-600 truncate max-w-xs">
+          Archivo: {{ selectedFile.name }}
+        </span>
+      </div>
     </div>
+  </div>
 
-    <div class="mb-4 flex flex-col">
-        <label for="color" class="text-base font-medium mb-1 dark:text-neutral-100">Color<span class="text-red-600"> *</span></label>
-        <input type="text" id="color" [(ngModel)]="categoria.color" name="color"
-            class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800"
-            placeholder="#FFFFFF" pattern="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$" title="Introduce un color hexadecimal válido." required>
-    </div>
-
-    <div class="mb-6">
-        <label for="icon_url" class="block text-gray-700 font-medium mb-2 dark:text-neutral-100">Icono (PNG)</label>
-
-        <div class="relative group">
-            <input type="file" id="icon_url" (change)="onFileSelected($event)" accept=".png" class="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer" required />
-
-            <div class="flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-300 rounded-lg p-4 bg-gray-50 text-center dark:bg-zinc-800 dark:hover:bg-zinc-700 dark:border-zinc-600 flex">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-zinc-400 w-8 h-8">
-                <rect x="2.5" y="5" width="19" height="14" fill="none" stroke="currentColor"/>
-                <polyline points="17.5 19 7.5 9 2.5 14" fill="none" stroke="currentColor"/>
-                <polyline points="21.5 17 16.5 12 13.5 15" fill="none" stroke="currentColor"/>
-            </svg>
-
-            <p class="text-gray-700 dark:text-zinc-300 font-medium text-sm">Haz clic o arrastra un archivo PNG</p>
-            <p class="text-gray-500 text-xs">Tamaño recomendado: 100x100 px</p>
-
-            <span *ngIf="selectedFile" class="text-sm text-blue-600 truncate max-w-xs">
-                Archivo: {{ selectedFile.name }}
-            </span>
-            </div>
-        </div>
-    </div>
-
-    <button type="submit" [disabled]="!form.valid"
-        class="mx-auto w-full border-3 border-emerald-500 text-emerald-500 py-1 rounded hover:bg-emerald-500 hover:text-white disabled:bg-gray-200 disabled:text-gray-400 disabled:border-gray-300 disabled:cursor-not-allowed dark:disabled:bg-neutral-700 dark:disabled:text-neutral-400 dark:disabled:border-neutral-600">
-        Guardar Categoría
-    </button>
+  <button 
+    type="submit" 
+    [disabled]="!form.valid"
+    class="mx-auto w-full border-3 border-emerald-500 text-emerald-500 py-1 rounded hover:bg-emerald-500 hover:text-white disabled:bg-gray-200 disabled:text-gray-400 disabled:border-gray-300 disabled:cursor-not-allowed dark:disabled:bg-neutral-700 dark:disabled:text-neutral-400 dark:disabled:border-neutral-600"
+    aria-label="Guardar categoría"
+  >
+    Guardar Categoría
+  </button>
 </form>

@@ -1,21 +1,73 @@
-<div class="shadow-xl  w-[95%] md:w-[80vw] h-[75vh] mx-auto mt-8 border border-stone-200 rounded-lg flex flex-col lg:flex-row items-center p-4 gap-[5%] dark:border-neutral-800">
+<div class="shadow-xl w-[95%] md:w-[80vw] h-[75vh] mx-auto mt-8 border border-stone-200 rounded-lg flex flex-col lg:flex-row items-center p-4 gap-[5%] dark:border-neutral-800"
+     role="region" aria-labelledby="loginTitle">
   <div class="w-[80%] h-[90%] lg:w-[60%] rounded-md lg:px-10 lg:py-5">
-    <h1 class="mt-15 md:mt-0 text-5xl font-semibold dark:text-neutral-100">Iniciar Sesión</h1>
-    <form (ngSubmit)="onSubmit()" class=" mt-8 flex flex-col items-left">
+    <h1 id="loginTitle" class="mt-15 md:mt-0 text-5xl font-semibold dark:text-neutral-100">Iniciar Sesión</h1>
+
+    <form (ngSubmit)="onSubmit()" class="mt-8 flex flex-col items-left" aria-describedby="loginInstructions">
+      <p id="loginInstructions" class="sr-only">Introduce tu nombre de usuario y contraseña para iniciar sesión.</p>
+
       <div class="mb-5 flex flex-col">
-        <label for="username" class="text-base font-medium mb-1 dark:text-neutral-100">Nombre de usuario<span class="text-red-600"> *</span></label>
-        <input type="text" [(ngModel)]="username" name="username" id="email" class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800" placeholder="beat-onUser" required>
-      </div>
-      <div class="flex flex-col">
-        <label for="password" class="text-base font-medium mb-1 dark:text-neutral-100">Contraseña<span class="text-red-600"> *</span></label>
-        <input type="password" [(ngModel)]="password" name="password" id="password" placeholder="••••••••" class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800" required>
+        <label for="username" class="text-base font-medium mb-1 dark:text-neutral-100">
+          Nombre de usuario <span class="text-red-600">*</span>
+        </label>
+        <input
+          type="text"
+          [(ngModel)]="username"
+          name="username"
+          id="username"
+          class="border border-stone-200 px-2 py-1 w-[250px] rounded-xs dark:text-gray-300 dark:border-neutral-800"
+          placeholder="beat-onUser"
+          required
+          aria-required="true"
+        />
       </div>
 
-      <div *ngIf="error" class="text-red-600 mt-2">
+      <div class="mb-5 flex flex-col">
+        <label for="password" class="text-base font-medium mb-1 dark:text-neutral-100">
+          Contraseña <span class="text-red-600">*</span>
+        </label>
+
+        <div class="relative w-[250px]">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            [(ngModel)]="password"
+            name="password"
+            id="password"
+            placeholder="••••••••"
+            class="border border-stone-200 px-2 py-1 w-full rounded-xs dark:text-gray-300 dark:border-neutral-800 pr-10"
+            required
+            aria-required="true"
+          />
+
+          <button
+            type="button"
+            (click)="showPassword = !showPassword"
+            [attr.aria-label]="showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+            class="absolute top-1/2 right-2 -translate-y-1/2 text-stone-500 dark:text-neutral-300"
+          >
+            <svg *ngIf="!showPassword" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5">
+              <path d="M22,12a11.6,11.6,0,0,1-10,6A11.6,11.6,0,0,1,2,12,11.6,11.6,0,0,1,12,6,11.6,11.6,0,0,1,22,12Z" fill="none" stroke="currentColor"/>
+              <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor"/>
+            </svg>
+            <svg *ngIf="showPassword" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5">
+              <line x1="3.5" y1="3.5" x2="20.5" y2="20.5" fill="none" stroke="currentColor" stroke-miterlimit="10"/>
+              <path d="M9,6.4A9.5,9.5,0,0,1,12,6a11.6,11.6,0,0,1,10,6,11.3,11.3,0,0,1-3.6,4" fill="none" stroke="currentColor"/>
+              <path d="M16.9,16.9A12.2,12.2,0,0,1,12,18,11.6,11.6,0,0,1,2,12,12.1,12.1,0,0,1,7.1,7.1" fill="none" stroke="currentColor"/>
+              <path d="M12,9a2.9,2.9,0,0,1,3,3" fill="none" stroke="currentColor"/>
+              <path d="M14.1,14.1A2.7,2.7,0,0,1,12,15a2.9,2.9,0,0,1-3-3,2.7,2.7,0,0,1,.9-2.1" fill="none" stroke="currentColor"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="error" class="text-red-600 mt-2" role="alert" aria-live="polite">
         {{ error }}
       </div>
 
-      <button type="submit" class="bg-stone-950 text-neutral-100 p-1 mt-6 w-[120px] rounded-sm dark:text-stone-950 dark:bg-neutral-100">Iniciar sesión</button>
+      <button type="submit"
+              class="bg-stone-950 text-neutral-100 p-1 mt-6 w-[120px] rounded-sm dark:text-stone-950 dark:bg-neutral-100"
+              aria-label="Enviar formulario de inicio de sesión">
+        Iniciar sesión
+      </button>
     </form>
 
     <div class="flex items-center justify-center my-4 lg:w-[400px]">
@@ -24,13 +76,13 @@
       <hr class="flex-grow border-t border-stone-950 dark:border-neutral-100">
     </div>
 
-    <h1 class="mt-1 text-zinc-400 dark:text-gray-300"> ¿Necesitas una cuenta? <a routerLink="/register" class="text-stone-950 dark:text-neutral-500">Registarse</a></h1>
+    <p class="mt-1 text-zinc-400 dark:text-gray-300">
+      ¿Necesitas una cuenta?
+      <a routerLink="/register" class="text-stone-950 dark:text-neutral-500">Registrarse</a>
+    </p>
   </div>
+
   <div class="hidden lg:flex bg-[#FDD142] w-[20%] lg:h-[100%] lg:w-[40%] rounded-md justify-center items-center">
-    <img src="assets/Logo-var-1.png" alt="" class="w-96 h-96">
+    <img src="assets/Logo-var-1.png" alt="Logo de Beat-On" class="w-96 h-96" />
   </div>
 </div>
-
-<!--
-
--->

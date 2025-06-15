@@ -1,28 +1,49 @@
-<h1 class="p-4 text-3xl md:text-[64px] font-semibold ml-3 dark:text-neutral-100">Favoritos</h1>
+<h1 class="p-4 text-3xl md:text-[64px] font-semibold ml-3 dark:text-neutral-100" id="favorites-title">
+  Favoritos
+</h1>
 
-<div *ngIf="favorites.length > 0; else noFavorites" class="flex flex-wrap justify-center gap-6 px-4">
-  <div *ngFor="let inst of favorites" class="bg-white shadow-md rounded-xl p-4 flex gap-1 h-48 w-72 sm:w-80 md:w-96 mx-auto dark:bg-stone-800">
-
-    <img [src]="environment.apiUrl + '/uploads/' + inst.coverUrl"
-         alt="Portada"
-         class="w-32 h-32 sm:w-40 sm:h-40 rounded-xl object-cover border" />
+<div 
+  *ngIf="favorites.length > 0; else noFavorites" 
+  class="flex flex-wrap justify-center gap-6 px-4"
+  role="region" 
+  aria-labelledby="favorites-title"
+>
+  <div 
+    *ngFor="let inst of favorites" 
+    class="bg-white shadow-md rounded-xl p-4 flex gap-1 h-48 w-72 sm:w-80 md:w-96 mx-auto dark:bg-stone-800"
+    role="group"
+    [attr.aria-label]="'Instrumental: ' + inst.instName + ', BPM: ' + inst.bpm"
+  >
+    <img 
+      [src]="environment.apiUrl + '/uploads/' + inst.coverUrl"
+      [alt]="'Portada de ' + inst.instName"
+      class="w-32 h-32 sm:w-40 sm:h-40 rounded-xl object-cover border" 
+    />
 
     <div class="ml-3 flex flex-col min-w-0 justify-center">
-      <h3 class="text-xl sm:text-2xl font-medium truncate dark:text-neutral-100">{{ inst.instName }}</h3>
+      <h3 class="text-xl sm:text-2xl font-medium truncate dark:text-neutral-100">
+        {{ inst.instName }}
+      </h3>
       <p class="text-sm text-gray-500 mt-1 dark:text-gray-300">BPM: {{ inst.bpm }}</p>
     </div>
 
     <div class="flex flex-col items-center justify-around h-full ml-auto">
-      <!-- Botón para quitar de favoritos -->
-      <button (click)="removeFromFavorites(inst.id)" class="w-6 h-6 mb-4">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-red-600">
+      <button 
+        (click)="removeFromFavorites(inst.id)" 
+        class="w-6 h-6 mb-4" 
+        [attr.aria-label]="'Eliminar ' + inst.instName + ' de favoritos'"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-red-600" aria-hidden="true">
           <path d="M12,8,10.7,6.8a4.7,4.7,0,0,0-6.4,0,4.7,4.7,0,0,0,0,6.4L12,21l7.7-7.8a4.7,4.7,0,0,0,0-6.4,4.7,4.7,0,0,0-6.4,0Z" fill="currentColor" stroke="currentColor"/>
         </svg>
       </button>
 
-      <!-- Botón para ir al secuenciador -->
-      <button (click)="goToPublicView(inst.id)" class="w-12 h-12 p-2 bg-stone-950 dark:bg-neutral-100 rounded-full text-sm">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-neutral-100 dark:text-stone-950">
+      <button 
+        (click)="goToPublicView(inst.id)" 
+        class="w-12 h-12 p-2 bg-stone-950 dark:bg-neutral-100 rounded-full text-sm"
+        [attr.aria-label]="'Ver detalles de ' + inst.instName"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="text-neutral-100 dark:text-stone-950" aria-hidden="true">
           <polygon points="5.2 12 5.2 3 13 7.5 20.8 12 13 16.5 5.2 21 5.2 12"
                    fill="currentColor" stroke="currentColor" stroke-width="1.5"/>
         </svg>
@@ -32,5 +53,7 @@
 </div>
 
 <ng-template #noFavorites>
-  <p class="text-gray-500 text-center mt-10">No tienes favoritos aún.</p>
+  <p class="text-gray-500 text-center mt-10" role="status">
+    No tienes favoritos aún.
+  </p>
 </ng-template>
